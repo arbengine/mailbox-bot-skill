@@ -2,7 +2,7 @@
 name: mailbox-bot
 description: Get a physical mailing address for your agent. Manage business mail, postal letters, documents, snail mail and packages programmatically via API.
 tags: [logistics, packages, shipping, physical-address, mailbox, api, webhook, mail, postal, documents]
-version: 1.0.4
+version: 1.0.5
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 ---
