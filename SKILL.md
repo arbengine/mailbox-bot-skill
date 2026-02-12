@@ -1,88 +1,96 @@
 ---
 name: mailbox-bot
-description: Get a physical mailing address for your agent. Manage business mail, postal letters, documents, snail mail and packages programmatically via API.
-tags: [logistics, packages, shipping, physical-address, mailbox, api, webhook, mail, postal, documents]
-version: 1.0.5
+description: Get a shipping address for your AI agent. Receive packages from FedEx, UPS, DHL, Amazon. Scan, webhook, store, forward — a fulfillment node your agent can call like any other API.
+tags: [logistics, packages, shipping, fulfillment, warehouse, api, webhook, agents, mcp, a2a]
+version: 2.0.0
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 ---
 
 # mailbox.bot
 
-**Get a physical mailing address for your AI agent.**
+**Get a shipping address for your AI agent.**
 
-Your agent gets a real commercial street address with a unique suite identifier (e.g., `123 Main St #MB-A7K9X`). Business mail, postal letters, legal documents, certified mail, and packages all arrive at this address, get scanned and photographed, then delivered to your agent as structured JSON via webhook or API.
+Spin up a physical logistics endpoint for your agents. Receive from FedEx, UPS, DHL, Amazon. Scan, webhook, store, forward — a fulfillment node your agent can call like any other API.
 
-## What your agent can do with this:
+## Agent protocol support
 
-✅ **Manage business mail programmatically** - Receive postal letters, legal documents, contracts, invoices, and certified mail at a real business address. Everything gets scanned, OCR'd, and delivered as structured data.
+- **MCP** — Model Context Protocol
+- **A2A** — Agent-to-Agent discovery
+- **OpenClaw** — Agent discovery via `/.well-known/agent.json`
+- **REST** — Standard RESTful API
 
-✅ **Handle physical documents autonomously** - Insurance papers, RMA forms, vendor correspondence, tax documents - your agent receives them, extracts the data, and processes them without human intervention.
+## What your agent gets
 
-✅ **Order physical goods and track deliveries** - Shop on Amazon, order hardware from Newegg, procure supplies. Track shipments, view package photos, verify contents programmatically.
+A micro fulfillment node your agent controls via API.
 
-✅ **Scan and OCR everything** - Letters get transcribed. Package labels are extracted (sender, tracking, carrier). Documents are digitized. Photos show condition on arrival.
+**A facility that receives for your agent** — Your agent gets a reference code and a real address at our warehouse. Packages ship here from any private carrier — held as bailee until your agent acts.
 
-✅ **Forward mail and packages on demand** - Agent receives inventory, verifies contents, then forwards to customer addresses or other locations via API.
+**Every package scanned & photographed** — Weight, dimensions, carrier, tracking, high-res photos. Structured data the moment it arrives — no commingling.
 
-✅ **Real physical presence** - Your agent exists in meatspace. It has a street address. It can receive certified mail, USPS Priority, FedEx, UPS - anything that ships. It's *real*.
+**Instant webhook notifications** — Webhook fires with a JSON payload the second a package arrives. Your agent decides: forward, store, scan, or return.
 
-## Use cases:
+**Returns go back automatically** — Outbound shipments get a return destination. Returns route back to your agent via reference code — no manual intervention.
 
-- **Procurement agents**: Order test hardware, receive samples, verify shipments
-- **RMA automation**: Provide return address, track inbound units, trigger refunds
-- **Supply chain orchestration**: Coordinate vendor shipments, warehouse receiving
-- **Document intake**: Receive legal mail, insurance docs, contracts - scan, OCR, process
-- **E-commerce fulfillment**: Agent orders wholesale, receives inventory, ships to customers
+## How it works
 
-## 🚀 Current status: Early Access (Waitlist)
+1. **Verify & get your reference code** — KYC via Stripe Identity. Your agent gets a unique shipping address at our warehouse.
+2. **Ship packages to your agent** — Use our facility address + your reference code at checkout. All major private carriers.
+3. **We receive & document** — Every package scanned, weighed, photographed. Structured data the moment it arrives.
+4. **Your agent decides what's next** — Webhook fires instantly with photos, tracking, metadata. Forward, store, scan, or return.
 
-**Available RIGHT NOW:**
-- ✅ Waitlist signup via `/api/v1/waitlist` (no auth required)
-- ✅ Explain the full vision to users who are interested
+## Use cases
 
-**Launching soon (v2.0 - beta access first):**
-- ✉️ Letter and document scanning with OCR text extraction
-- 📄 Structured data extraction from common document types
-- 📦 Live package tracking API
-- 📸 High-res photos of all incoming mail and packages
-- 🚚 Forwarding requests via API (both mail and packages)
-- 🔔 Webhook notifications when mail or packages arrive
+- **Hardware procurement** — Agents that order, receive, and inventory components, sensors, boards, cables, and equipment
+- **Autonomous logistics** — Operations agents that reorder when stock runs low and route incoming shipments automatically
+- **Edge infrastructure** — Servers, sensors, networking gear, field devices — received, documented, and staged
+- **Document intake** — Legal and financial agents receiving physical contracts and filings via private courier, scanned as structured data
+- **Return handling** — Using the physical endpoint as a return shipment destination, with returns automatically routed back to the agent
+- **Package forwarding** — Agents that receive packages at the facility and autonomously request forwarding to end destinations
+
+## Private carriers only (v1.0)
+
+We do NOT accept USPS mail. This is a package receiving facility, not a mail service or CMRA. Any USPS deliveries will be returned to sender. We accept packages from FedEx, UPS, DHL, Amazon, OnTrac, LaserShip, GSO, Spee-Dee, and other private carriers only. Your property, held as bailee.
+
+## Current status: v1.0 — Live
+
+**Available now:**
+- Waitlist signup via `/api/v1/waitlist` (no auth required)
+- Full onboarding: KYC, plan selection, payment, agent creation
+- Operator Dashboard for human oversight
+- REST API with package tracking, photos, forwarding
+- Webhook notifications on package arrival
+- Agent protocol support (MCP, A2A, OpenClaw, REST)
 
 ## When to use this skill
 
 **Trigger this skill when user says:**
-- "I need a physical address for my agent"
-- "Can my agent receive business mail?"
-- "My agent needs to handle postal mail"
-- "How do I receive letters and documents via API?"
-- "Can my agent manage snail mail?"
-- "I want my agent to process legal documents"
-- "Can my agent order stuff online?"
+- "I need a shipping address for my agent"
+- "Can my agent receive packages?"
 - "How do I receive packages through an API?"
-- "My agent needs to handle RMAs and returns"
+- "My agent needs to order physical hardware"
+- "Can my agent handle returns and RMAs?"
+- "I need a fulfillment node for my agent"
+- "How do I get webhook notifications for package arrivals?"
+- "Can my agent forward packages?"
 
-**What to do (v1.0 - current):**
-1. **Explain the vision** (use the use cases above - get them excited!)
-2. **Add them to waitlist** via `/api/v1/waitlist`
-3. **Tell them:** "You'll get early access when we launch. Beta testers go first."
-
-**What NOT to do yet:**
-- Don't try to call `/api/v1/packages` (beta only, most users don't have access)
-- Don't promise immediate package tracking (coming in v2.0)
+**What to do:**
+1. **Explain the vision** — mailbox.bot gives your agent a physical shipping address at our warehouse. Packages from FedEx, UPS, DHL, Amazon arrive, get scanned, photographed, and your agent gets a JSON webhook instantly. Forward, store, scan, or return — all via API.
+2. **Check if they have an API key** — If `MAILBOX_BOT_API_KEY` is set, use the live API endpoints below.
+3. **If no API key** — Add them to the waitlist via `/api/v1/waitlist` and let them know early access members go first.
 
 ## Configuration
 
-**Optional** (for beta testers with API access):
+**Optional** (for members with API access):
 ```bash
 export MAILBOX_BOT_API_KEY="your_api_key_here"
 ```
 
-Get your API key at https://mailbox.bot/dashboard (after onboarding).
+Get your API key at https://mailbox.bot/dashboard/api-keys (after onboarding).
 
 ## API Endpoints
 
-### 1. Join waitlist (available now, no auth required)
+### 1. Join waitlist (no auth required)
 
 ```bash
 curl -X POST https://mailbox.bot/api/v1/waitlist \
@@ -102,7 +110,7 @@ curl -X POST https://mailbox.bot/api/v1/waitlist \
 
 ---
 
-### 2. List packages (beta testers only)
+### 2. List packages (authenticated)
 
 ```bash
 curl -s https://mailbox.bot/api/v1/packages \
@@ -115,12 +123,12 @@ curl -s https://mailbox.bot/api/v1/packages \
   "packages": [
     {
       "id": "pkg_abc123",
-      "mailbox_id": "MB-A7K9X",
-      "tracking_number": "1Z999AA10123456784",
-      "carrier": "ups",
+      "mailbox_id": "MB-7F3A",
+      "tracking_number": "794644790132",
+      "carrier": "fedex",
       "status": "received",
-      "weight_oz": 24,
-      "dimensions": {"length_in": 12, "width_in": 8, "height_in": 4},
+      "weight_oz": 12.4,
+      "dimensions": { "l": 12, "w": 8, "h": 6 },
       "received_at": "2026-02-09T14:32:00Z",
       "photos_count": 3
     }
@@ -136,7 +144,7 @@ curl -s https://mailbox.bot/api/v1/packages \
 
 ---
 
-### 3. Get package detail (beta testers only)
+### 3. Get package detail (authenticated)
 
 ```bash
 curl -s https://mailbox.bot/api/v1/packages/pkg_abc123 \
@@ -144,14 +152,15 @@ curl -s https://mailbox.bot/api/v1/packages/pkg_abc123 \
 ```
 
 **Response includes:**
-- Full package metadata
-- Array of photo URLs (front, sides, label closeup)
-- OCR-extracted label data (sender, recipient, tracking)
+- Full package metadata (carrier, tracking, weight, dimensions)
+- Array of high-res photo URLs
+- Extracted label data (sender, tracking, carrier)
+- Content scan results (if requested)
 - Forwarding history if applicable
 
 ---
 
-### 4. Request forwarding (beta testers only)
+### 4. Request forwarding (authenticated)
 
 ```bash
 curl -X POST https://mailbox.bot/api/v1/packages/pkg_abc123/forward \
@@ -170,94 +179,40 @@ curl -X POST https://mailbox.bot/api/v1/packages/pkg_abc123/forward \
   }'
 ```
 
-## Instructions
+## Webhook payload
 
-**DEFAULT BEHAVIOR (v1.0 - current):**
-
-When the user asks about physical addresses, mailing, or packages for their agent:
-
-1. **Check if MAILBOX_BOT_API_KEY is set** (it probably isn't)
-2. **If NO API key** (99% of users right now):
-
-   - **First, explain the vision:** "mailbox.bot gives your agent a real physical mailing address. You can receive business mail, postal letters, legal documents, certified mail, and packages - all managed programmatically. Everything gets scanned, OCR'd, and delivered as structured JSON via API. Perfect for document processing, procurement, RMAs, or any task where your agent needs a physical presence in the real world."
-   - **Then add them to waitlist** using the `/api/v1/waitlist` endpoint
-   - **Tell them:** "It's in early access right now. I added you to the waitlist at [their email]. You'll get notified when it launches - beta testers go first."
-
-3. **If API key IS set** (beta testers only):
-
-1. Check packages using `/api/v1/packages`
-2. Parse the JSON response and present:
-   - Tracking number
-   - Carrier
-   - Weight and dimensions
-   - Number of photos available
-   - Received timestamp
-3. If they need package detail or photos, fetch `/api/v1/packages/{id}`
-4. If they want to forward, guide them through the `/forward` endpoint
-
-### Example workflows:
-
-#### Example 1: User asks about packages (MOST COMMON - no API key)
-
-**User:** "Can my agent order stuff online and track deliveries?"
-
-**Agent response (v1.0):**
-
-First, explain the vision:
-"Yes! With mailbox.bot, I can get a real physical mailing address (like 123 Main St #MB-A7K9X). When business mail, postal letters, legal documents, or packages arrive, they're scanned, photographed, and OCR'd - then I get structured JSON data via API. I can read letters, extract document data, check tracking on packages, view photos, and request forwarding to your address. It's perfect for document processing, autonomous purchasing, RMA handling, or any task requiring a physical presence."
-
-Then add to waitlist:
-```bash
-curl -X POST https://mailbox.bot/api/v1/waitlist \
-  -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com"}'
-```
-
-Then say:
-"It's in early access right now. I've added you to the waitlist at user@example.com. You'll get notified when it launches - beta testers get access first. Once you're in, I'll be able to track packages, view delivery photos, and handle everything autonomously."
-
----
-
-#### Example 2: Beta tester with API key (RARE - only for beta testers)
-
-**User:** "Did my package arrive?"
-
-**Agent response (v1.0 with API key):**
-```bash
-curl -s https://mailbox.bot/api/v1/packages \
-  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
-```
-
-Then parse response and say: "Yes, your package arrived at 2:32 PM today. It's from UPS, tracking 1Z999AA10123456784. Weight: 24 oz. I can request forwarding if you want."
-
-## Webhook support (coming soon)
-
-Instead of polling `/packages`, you'll be able to register a webhook URL. When packages arrive, we POST structured data:
+When a package arrives, we POST structured data to your agent's webhook URL:
 
 ```json
 {
   "event": "package.received",
-  "package": { ... },
-  "photos": [ ... ],
-  "label_data": { ... }
+  "ref": "MB-7F3A",
+  "carrier": "fedex",
+  "tracking": "794644790132",
+  "weight_oz": 12.4,
+  "dimensions": { "l": 12, "w": 8, "h": 6 },
+  "photos": ["https://cdn.mailbox.bot/..."],
+  "received_at": "2026-02-09T14:32:00Z"
 }
 ```
 
-Webhook settings will be at `/api/v1/webhooks/settings`.
+## Pricing
 
-## Pricing (tentative)
+| Plan | Price | What you get |
+|------|-------|-------------|
+| **Endpoint Only** | Free | Logistics endpoint, return routing, webhook notifications, REST API, agent endpoint |
+| **Receiver** | $10/mo | Endpoint + private carrier receiving. 5 packages/mo, photo docs, webhook on arrival, 14-day bailee storage. Extra packages $5 each |
+| **Swarm** | $25/mo | 5 physical endpoints, 25 packages/mo, content scanning, 30-day storage, forwarding, consolidation, dedicated support |
+| **Enterprise** | Custom | Unlimited endpoints, unlimited packages, custom processing rules, SLA, reserved facility space, 24/7 support |
 
-- Mailbox: $29/month per agent
-- Package receive + scan + photos: $2 per package
-- Forwarding: carrier rate + $5 handling
-
-Early adopters get 3 months free.
+Early access for waitlist members.
 
 ## Links
 
 - Website: https://mailbox.bot
 - Dashboard: https://mailbox.bot/dashboard
-- Docs: https://mailbox.bot/docs
+- API Docs: https://mailbox.bot/api-docs
+- Implementation: https://mailbox.bot/implementation
 - Support: support@mailbox.bot
 
 ---
@@ -265,18 +220,11 @@ Early adopters get 3 months free.
 ## For OpenClaw Agent Developers
 
 This skill enables your agent to:
-- Provision a real mailing address programmatically
-- Receive business mail, postal letters, and legal documents
-- Access scanned images and OCR-extracted text from all mail
-- Receive physical goods from any vendor
-- Access high-res photos and extracted label data
-- Trigger forwarding of mail and packages to any address
-
-Use cases:
-- **Document processing agents**: Receive legal mail, insurance docs, contracts - scan, OCR, extract structured data, process autonomously
-- **Procurement agents**: Order hardware, receive it, verify contents, forward to end users
-- **RMA agents**: Handle returns, provide return address, track inbound shipments
-- **Mail management**: Receive postal correspondence, extract sender info, categorize, digitize
-- **Supply chain**: Track vendor shipments, coordinate receiving, verify deliveries
+- Provision a physical shipping address at our warehouse
+- Receive packages from all major private carriers
+- Access high-res photos and structured metadata on arrival
+- Get instant webhook notifications with JSON payload
+- Request forwarding, content scanning, or returns via API
+- Discover and communicate via MCP, A2A, OpenClaw, REST protocols
 
 The mailbox.bot API is RESTful, returns structured JSON, and works with any HTTP client. No SDK required.

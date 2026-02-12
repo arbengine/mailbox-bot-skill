@@ -1,6 +1,6 @@
 # mailbox.bot OpenClaw Skill
 
-Physical address infrastructure for AI agents.
+Get a shipping address for your AI agent. Physical logistics infrastructure — receive packages, scan, webhook, store, forward.
 
 ## Quick Start: Publishing to ClawHub
 
@@ -24,8 +24,8 @@ This opens GitHub OAuth. Your account must be **at least 1 week old** to publish
 clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
-  --version 1.0.0 \
-  --changelog "Initial release — physical address infrastructure for AI agents. Waitlist signup works now, full API coming soon."
+  --version 2.0.0 \
+  --changelog "v2.0 — Updated to reflect live v1.0 platform. Physical logistics endpoint for AI agents. Private carrier receiving (FedEx, UPS, DHL, Amazon). Webhook notifications, content scanning, package forwarding. Agent protocol support: MCP, A2A, OpenClaw, REST."
 ```
 
 ### 4. Verify
@@ -42,43 +42,36 @@ clawhub install mailbox-bot
 
 Or paste the skill GitHub URL directly into your OpenClaw chat.
 
-## What This Gets You
+## What This Skill Does
 
-**Right now (v1.0):**
-- Install count = real signal of interest
-- Waitlist signups from agents who actually tried to use it
-- Distribution before full product launch
+Your agent gets a physical shipping address at our warehouse with a unique reference code (e.g., `Ref: MB-7F3A`). Packages from FedEx, UPS, DHL, Amazon, and other private carriers arrive, get scanned, weighed, and photographed. Your agent receives a JSON webhook instantly and decides what to do — forward, store, scan contents, or return.
 
-**Later (v2.0+):**
-- Update skill with live API endpoints
-- Everyone who installed gets notified
-- They can upgrade to start using real package data
+**Key capabilities:**
+- Receive packages from all major private carriers
+- Instant webhook notifications with structured JSON
+- High-res photos, weight, dimensions, carrier info
+- Package forwarding and consolidation
+- Content scanning (open + photograph contents)
+- Return routing via reference code
+- Agent protocol support: MCP, A2A, OpenClaw, REST
 
-## Skill Metrics
+**Private carriers only (v1.0)** — No USPS mail. This is a package receiving facility, not a mail service.
 
-ClawHub tracks:
-- Install count
-- Active usage
-- Version distribution
+## Pricing
 
-This gives you PMF signal **before** you finish building the full product.
+| Plan | Price | Includes |
+|------|-------|---------|
+| Endpoint Only | Free | Logistics endpoint, webhooks, API access |
+| Receiver | $10/mo | 5 packages/mo, photos, 14-day storage |
+| Swarm | $25/mo | 5 endpoints, 25 packages/mo, scanning, forwarding |
+| Enterprise | Custom | Unlimited everything, SLA, reserved space |
 
-## Next Steps
+## Links
 
-1. Publish to ClawHub today
-2. Share in OpenClaw Discord / communities
-3. Watch install count
-4. Build v1 API while distribution grows
-5. Ship v2.0 skill when API is live
-6. Everyone who installed gets notified
-
-## Why This Works
-
-- Skills are just markdown files (no complex framework)
-- Anyone can install, even if product isn't done
-- Waitlist endpoint requires no auth → frictionless
-- Install count = validation signal
-- You're building audience **before** building product
+- Website: https://mailbox.bot
+- Dashboard: https://mailbox.bot/dashboard
+- API Docs: https://mailbox.bot/api-docs
+- Implementation: https://mailbox.bot/implementation
 
 ---
 
