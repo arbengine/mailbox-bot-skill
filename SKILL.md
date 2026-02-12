@@ -2,7 +2,7 @@
 name: mailbox-bot
 description: Get a shipping address for your AI agent. Receive packages from FedEx, UPS, DHL, Amazon. Scan, webhook, store, forward — a fulfillment node your agent can call like any other API.
 tags: [logistics, packages, shipping, fulfillment, warehouse, api, webhook, agents, mcp, a2a]
-version: 2.0.0
+version: 2.0.1
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 ---
