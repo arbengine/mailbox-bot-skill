@@ -1,230 +1,279 @@
 ---
 name: mailbox-bot
-description: Get a shipping address for your AI agent. Receive packages from FedEx, UPS, DHL, Amazon. Scan, webhook, store, forward — a fulfillment node your agent can call like any other API.
-tags: [logistics, packages, shipping, fulfillment, warehouse, api, webhook, agents, mcp, a2a]
-version: 2.0.1
+description: Provision a physical shipping address for your AI agent. Receive packages from FedEx, UPS, DHL, Amazon. Scan, webhook, store, forward — a fulfillment node your agent can call like any API.
+tags: [logistics, packages, shipping, fulfillment, warehouse, api, webhook, agents]
+version: 3.0.0
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 ---
 
 # mailbox.bot
 
-**Get a shipping address for your AI agent.**
+**Provision a physical shipping address for your AI agent.**
 
-Spin up a physical logistics endpoint for your agents. Receive from FedEx, UPS, DHL, Amazon. Scan, webhook, store, forward — a fulfillment node your agent can call like any other API.
-
-## Agent protocol support
-
-- **MCP** — Model Context Protocol
-- **A2A** — Agent-to-Agent discovery
-- **OpenClaw** — Agent discovery via `/.well-known/agent.json`
-- **REST** — Standard RESTful API
+Receive packages from FedEx, UPS, DHL, Amazon, and other private carriers. Scan, photograph, forward, store — your agent controls a real warehouse facility via API.
 
 ## What your agent gets
 
-A micro fulfillment node your agent controls via API.
+- **Physical shipping address** — unique reference code at a warehouse facility, usable for shipping within seconds of provisioning
+- **Package documentation** — photos, weight, dimensions, carrier info, OCR label extraction on every arrival
+- **Webhook notifications** — HMAC-signed JSON payloads fire the moment a package arrives
+- **Actions via API** — forward, scan, photograph, hold, shred, dispose, return to sender
+- **Standing instructions** — auto-trigger actions based on carrier, weight, sender, tracking patterns
+- **Agent memory** — tag and annotate packages with persistent notes and metadata
 
-**A facility that receives for your agent** — Your agent gets a reference code and a real address at our warehouse. Packages ship here from any private carrier — held as bailee until your agent acts.
+## How to get started
 
-**Every package scanned & photographed** — Weight, dimensions, carrier, tracking, high-res photos. Structured data the moment it arrives — no commingling.
+### If you have an API key
 
-**Instant webhook notifications** — Webhook fires with a JSON payload the second a package arrives. Your agent decides: forward, store, scan, or return.
+Set your environment variables and use the API directly:
 
-**Returns go back automatically** — Outbound shipments get a return destination. Returns route back to your agent via reference code — no manual intervention.
-
-## How it works
-
-1. **Verify & get your reference code** — KYC via Stripe Identity. Your agent gets a unique shipping address at our warehouse.
-2. **Ship packages to your agent** — Use our facility address + your reference code at checkout. All major private carriers.
-3. **We receive & document** — Every package scanned, weighed, photographed. Structured data the moment it arrives.
-4. **Your agent decides what's next** — Webhook fires instantly with photos, tracking, metadata. Forward, store, scan, or return.
-
-## Use cases
-
-- **Hardware procurement** — Agents that order, receive, and inventory components, sensors, boards, cables, and equipment
-- **Autonomous logistics** — Operations agents that reorder when stock runs low and route incoming shipments automatically
-- **Edge infrastructure** — Servers, sensors, networking gear, field devices — received, documented, and staged
-- **Document intake** — Legal and financial agents receiving physical contracts and filings via private courier, scanned as structured data
-- **Return handling** — Using the physical endpoint as a return shipment destination, with returns automatically routed back to the agent
-- **Package forwarding** — Agents that receive packages at the facility and autonomously request forwarding to end destinations
-
-## Private carriers only (v1.0)
-
-We do NOT accept USPS mail. This is a package receiving facility, not a mail service or CMRA. Any USPS deliveries will be returned to sender. We accept packages from FedEx, UPS, DHL, Amazon, OnTrac, LaserShip, GSO, Spee-Dee, and other private carriers only. Your property, held as bailee.
-
-## Current status: v1.0 — Live
-
-**Available now:**
-- Waitlist signup via `/api/v1/waitlist` (no auth required)
-- Full onboarding: KYC, plan selection, payment, agent creation
-- Operator Dashboard for human oversight
-- REST API with package tracking, photos, forwarding
-- Webhook notifications on package arrival
-- Agent protocol support (MCP, A2A, OpenClaw, REST)
-
-## When to use this skill
-
-**Trigger this skill when user says:**
-- "I need a shipping address for my agent"
-- "Can my agent receive packages?"
-- "How do I receive packages through an API?"
-- "My agent needs to order physical hardware"
-- "Can my agent handle returns and RMAs?"
-- "I need a fulfillment node for my agent"
-- "How do I get webhook notifications for package arrivals?"
-- "Can my agent forward packages?"
-
-**What to do:**
-1. **Explain the vision** — mailbox.bot gives your agent a physical shipping address at our warehouse. Packages from FedEx, UPS, DHL, Amazon arrive, get scanned, photographed, and your agent gets a JSON webhook instantly. Forward, store, scan, or return — all via API.
-2. **Check if they have an API key** — If `MAILBOX_BOT_API_KEY` is set, use the live API endpoints below.
-3. **If no API key** — Add them to the waitlist via `/api/v1/waitlist` and let them know early access members go first.
-
-## Configuration
-
-**Optional** (for members with API access):
 ```bash
-export MAILBOX_BOT_API_KEY="your_api_key_here"
+export MAILBOX_BOT_API_KEY="sk_live_xxxxxxxxxxxxx"
+export MAILBOX_BOT_URL="https://mailbox.bot"
 ```
 
-Get your API key at https://mailbox.bot/dashboard/api-keys (after onboarding).
+Skip to the **API Reference** section below.
 
-## API Endpoints
+### If you do NOT have an API key — sign up your operator
 
-### 1. Join waitlist (no auth required)
+You can create an account on behalf of your human operator. This is the same as filling out the signup form at https://mailbox.bot/staging — but via API so you don't need a browser.
+
+The signup form has three fields:
+
+| Field | Label | Placeholder | Rules |
+|-------|-------|-------------|-------|
+| `full_name` | Full Name | Jane Smith | Required, 2-100 characters, operator's real legal name |
+| `email` | Email | you@company.com | Required, valid email — the verification link is sent here |
+| `password` | Password | At least 8 characters | Required, minimum 8 characters |
+
+There is no CAPTCHA, no TOS checkbox, and no other fields at this step. Just these three.
+
+**POST to `https://mailbox.bot/api/v1/signup`:**
 
 ```bash
-curl -X POST https://mailbox.bot/api/v1/waitlist \
+curl -X POST https://mailbox.bot/api/v1/signup \
   -H "Content-Type: application/json" \
-  -d '{"email": "agent@yourcompany.com"}'
+  -d '{
+    "full_name": "Jane Smith",
+    "email": "operator@example.com",
+    "password": "securepassword123",
+    "needs": "receive hardware shipments, ~20 packages/month"
+  }'
 ```
 
-**Response:**
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `full_name` | string | Yes | Operator's legal name (2-100 chars) |
+| `email` | string | Yes | Operator's email — verification link sent here |
+| `password` | string | Yes | Min 8 characters |
+| `needs` | string | No | Free text — what the agent/operator needs |
+
+No authentication header required. No CAPTCHA. Rate limit: 5 requests per minute per IP.
+
+**What happens when you POST:**
+
+1. Account is created immediately
+2. A verification email is sent to the operator's email address automatically
+3. The operator's account is set to `onboarding_step: "signup"` (waiting for email verification)
+
+**Success response (201):**
+
 ```json
 {
   "success": true,
-  "message": "You're on the waitlist. We'll notify you when we launch."
-}
-```
-
-**Rate limit:** 30 requests/minute per IP.
-
----
-
-### 2. List packages (authenticated)
-
-```bash
-curl -s https://mailbox.bot/api/v1/packages \
-  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
-```
-
-**Response:**
-```json
-{
-  "packages": [
-    {
-      "id": "pkg_abc123",
-      "mailbox_id": "MB-7F3A",
-      "tracking_number": "794644790132",
-      "carrier": "fedex",
-      "status": "received",
-      "weight_oz": 12.4,
-      "dimensions": { "l": 12, "w": 8, "h": 6 },
-      "received_at": "2026-02-09T14:32:00Z",
-      "photos_count": 3
-    }
-  ],
-  "pagination": {
-    "total": 1,
-    "limit": 20,
-    "offset": 0,
-    "has_more": false
+  "message": "Account created. A verification email has been sent. The operator must verify their email and complete KYC to activate the account.",
+  "next_steps": {
+    "verify_email": "Click the verification link sent to the operator's email",
+    "complete_kyc": "https://mailbox.bot/staging",
+    "after_kyc": "Select a plan, add payment, and create your first agent to get API keys"
   }
 }
 ```
 
----
+**Error responses:**
 
-### 3. Get package detail (authenticated)
+| Status | Error | Cause |
+|--------|-------|-------|
+| 400 | `"email, password, and full_name are required"` | Missing a required field |
+| 400 | `"Password must be at least 8 characters"` | Password too short |
+| 400 | `"Invalid email address"` | Bad email format |
+| 409 | `"An account with this email already exists"` | Duplicate email |
+| 429 | Rate limit exceeded | Too many requests from this IP |
+
+**After signup — tell your operator:**
+
+> "I created your mailbox.bot account. Check your email at **operator@example.com** for a verification link. Click it, then go to https://mailbox.bot/staging to finish setup (~5 minutes). Once you're done, I'll have API access to manage your packages."
+
+The human must complete these steps in a browser (the agent cannot do these):
+1. Click the email verification link
+2. Verify phone number (carrier check — no VoIP/burner phones)
+3. Select service type (virtual mailbox or warehouse)
+4. Add a payment card (no prepaid/gift cards)
+5. Complete identity verification (Stripe Identity or notary session)
+6. Accept Terms of Service
+7. Select a plan and pay
+
+After the human finishes, an agent and mailbox are auto-provisioned. The operator's dashboard at https://mailbox.bot/dashboard shows the API keys.
+
+**Once you have the API key, set it and start managing packages:**
 
 ```bash
-curl -s https://mailbox.bot/api/v1/packages/pkg_abc123 \
+curl -s https://mailbox.bot/api/v1/mailboxes \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" | jq .
+```
+
+This returns the physical shipping address your agent can use immediately.
+
+---
+
+## API Reference
+
+Base URL: `https://mailbox.bot`
+
+All authenticated endpoints require:
+```
+Authorization: Bearer $MAILBOX_BOT_API_KEY
+```
+
+### List packages
+
+```bash
+curl -s "$MAILBOX_BOT_URL/api/v1/packages?status=received" \
   -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
 ```
 
-**Response includes:**
-- Full package metadata (carrier, tracking, weight, dimensions)
-- Array of high-res photo URLs
-- Extracted label data (sender, tracking, carrier)
-- Content scan results (if requested)
-- Forwarding history if applicable
+Filters: `status`, `carrier`, `since`, `before`, `limit`, `offset`
 
----
-
-### 4. Request forwarding (authenticated)
+### Get package details
 
 ```bash
-curl -X POST https://mailbox.bot/api/v1/packages/pkg_abc123/forward \
+curl -s "$MAILBOX_BOT_URL/api/v1/packages/{package_id}" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
+```
+
+### Request an action
+
+```bash
+curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{package_id}/actions" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"action": "scan", "priority": "normal"}'
+```
+
+Action types: `scan`, `open_and_scan`, `photograph`, `record_video`, `forward`, `shred`, `dispose`, `return_to_sender`, `hold`
+
+### Forward a package
+
+```bash
+curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{package_id}/forward" \
   -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "address": {
-      "name": "John Doe",
-      "street1": "456 Destination Ave",
-      "city": "Austin",
-      "state": "TX",
-      "zip": "78701"
-    },
-    "carrier": "fedex",
-    "service_level": "ground"
+    "to_name": "John Doe",
+    "to_line1": "123 Main Street",
+    "to_city": "New York",
+    "to_state": "NY",
+    "to_zip": "10001"
   }'
 ```
 
-## Webhook payload
+### Request a scan
 
-When a package arrives, we POST structured data to your agent's webhook URL:
-
-```json
-{
-  "event": "package.received",
-  "ref": "MB-7F3A",
-  "carrier": "fedex",
-  "tracking": "794644790132",
-  "weight_oz": 12.4,
-  "dimensions": { "l": 12, "w": 8, "h": 6 },
-  "photos": ["https://cdn.mailbox.bot/..."],
-  "received_at": "2026-02-09T14:32:00Z"
-}
+```bash
+curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{package_id}/scan" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"scan_type": "document"}'
 ```
 
-## Pricing
+Scan types: `label`, `envelope`, `document`, `content`
 
-| Plan | Price | What you get |
-|------|-------|-------------|
-| **Endpoint Only** | Free | Logistics endpoint, return routing, webhook notifications, REST API, agent endpoint |
-| **Receiver** | $10/mo | Endpoint + private carrier receiving. 5 packages/mo, photo docs, webhook on arrival, 14-day bailee storage. Extra packages $5 each |
-| **Swarm** | $25/mo | 5 physical endpoints, 25 packages/mo, content scanning, 30-day storage, forwarding, consolidation, dedicated support |
-| **Enterprise** | Custom | Unlimited endpoints, unlimited packages, custom processing rules, SLA, reserved facility space, 24/7 support |
+### Get mailbox address
 
-Early access for waitlist members.
+```bash
+curl -s "$MAILBOX_BOT_URL/api/v1/mailboxes" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
+```
 
-## Links
+### Webhook settings
 
-- Website: https://mailbox.bot
-- Dashboard: https://mailbox.bot/dashboard
-- API Docs: https://mailbox.bot/api-docs
-- Implementation: https://mailbox.bot/implementation
-- Support: support@mailbox.bot
+```bash
+curl -X PUT "$MAILBOX_BOT_URL/api/v1/webhooks/settings" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agent_id": "YOUR_AGENT_ID",
+    "webhook_url": "https://your-agent.com/webhooks",
+    "event_types": ["package.received", "action.completed"]
+  }'
+```
+
+### Add notes and tags
+
+```bash
+curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{package_id}/notes" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"note": "Contains Mouser order #12345"}'
+```
+
+```bash
+curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{package_id}/tags" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"tag": "hardware-order"}'
+```
+
+### Check usage
+
+```bash
+curl -s "$MAILBOX_BOT_URL/api/v1/usage" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
+```
 
 ---
 
-## For OpenClaw Agent Developers
+## When to use this skill
 
-This skill enables your agent to:
-- Provision a physical shipping address at our warehouse
-- Receive packages from all major private carriers
-- Access high-res photos and structured metadata on arrival
-- Get instant webhook notifications with JSON payload
-- Request forwarding, content scanning, or returns via API
-- Discover and communicate via MCP, A2A, OpenClaw, REST protocols
+Trigger when user says:
+- "I need a shipping address for my agent"
+- "Can my agent receive packages?"
+- "How do I receive packages via API?"
+- "My agent needs to order hardware"
+- "Can my agent handle returns?"
+- "I need a fulfillment node"
+- "How do I get webhook notifications for package arrivals?"
+- "Can my agent forward packages automatically?"
 
-The mailbox.bot API is RESTful, returns structured JSON, and works with any HTTP client. No SDK required.
+**Action flow:**
+1. Check for API key (`MAILBOX_BOT_API_KEY`). If present, use the API directly.
+2. If no API key, **create an account for the operator** by POSTing to `https://mailbox.bot/api/v1/signup` with their email, a password, and their full name.
+3. Tell the operator to check their email, click the verification link, and complete onboarding at https://mailbox.bot/staging (~5 minutes).
+4. Once onboarding is done, set the API key and start managing packages.
+
+---
+
+## Decision framework
+
+When checking the mailbox:
+
+1. **List received packages** — `GET /api/v1/packages?status=received`
+2. **Triage by urgency** — FedEx Express / marked URGENT → scan label immediately. Heavy boxes → likely needs forwarding. Letters → scan contents.
+3. **Check rules** — expected shipments and standing instructions may already cover this package.
+4. **Take action** — forward, scan, hold, shred, dispose, or return. Always add a note explaining why.
+5. **Report back** — summarize what arrived and what you did.
+
+---
+
+## Configuration
+
+```bash
+export MAILBOX_BOT_API_KEY="sk_live_xxxxxxxxxxxxx"
+export MAILBOX_BOT_URL="https://mailbox.bot"
+```
+
+Full API reference: https://mailbox.bot/llms-full.txt
+Agent discovery: https://mailbox.bot/.well-known/agent.json
+Pricing: https://mailbox.bot/pricing
+Contact: founders@mailbox.bot
