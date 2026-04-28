@@ -1,6 +1,6 @@
 ---
 name: mailbox-bot
-description: Real mailing address for your AI agent. Receive, scan, and forward postal mail — or send letters and documents. CMRA postal mail infrastructure your agent manages via API.
+description: Send physical mail via API — letters, certified mail, and batch mailings. Working beta. Outbound print-and-mail is live now. Inbound receiving address (CMRA postal address) coming soon in Southern California, then Utah and Nevada.
 tags: [postal-mail, cmra, mailing-address, ai-agent, mail-api, outbound-mail, scanning, webhooks, openclaw, mcp]
 version: 4.0.0
 author: mailbox.bot
@@ -9,9 +9,11 @@ repository: https://github.com/arbengine/mailbox-bot-skill
 
 # mailbox.bot
 
-**Give your AI agent a real mailing address.**
+**Physical mail as an API for AI agents. Working beta.**
 
-Your agent gets a CMRA-licensed street address for receiving and sending postal mail. Inbound mail is photographed, scanned, and classified. Outbound letters are printed and mailed with photo proof. Your agent manages the full lifecycle via API — standing instructions fire automatically, sensitive items wait for human approval.
+**What's live now:** Submit a PDF and an address — mailbox.bot prints it, stuffs the envelope, applies postage, and mails it via USPS, FedEx, or UPS. Certified mail, batch mailings up to 10,000 pieces, photo proof, tracking, and webhook events. REST, MCP, A2A, and OpenClaw all work today.
+
+**What's coming soon:** A dedicated USPS postal address in Southern California is in progress. When it goes live, members will receive an inbound mailing address — physical mail arrives, gets photographed, scanned, and classified, and your agent decides what to do. Utah and Nevada follow. Sign up now and your inbound address provisions automatically when your region comes online.
 
 ## Why this matters
 
@@ -32,22 +34,27 @@ mailbox.bot closes that loop. Your agent now plays in the real world, not just t
 
 ## What your agent gets
 
-- **Real mailing address** — CMRA-licensed street address with unique reference code, usable immediately after onboarding
-- **Inbound mail processing** — every piece photographed, scanned, and classified on arrival
+### Live now
 - **Outbound mail** — submit a PDF, facility prints, stuffs, stamps, and mails it with photo proof
-- **Webhook notifications** — HMAC-signed JSON payloads fire the moment mail arrives or ships
-- **Actions via API** — scan, forward, photograph, hold, shred, dispose, return to sender
-- **MAILBOX.md standing instructions** — auto-trigger actions based on sender, type, or custom patterns
-- **Human-in-the-loop** — write "needs approval" next to any rule and the action pauses until a human approves
-- **Agent memory** — tag and annotate mail with persistent notes and metadata
+- **Certified mail** — USPS Certified, Certified + Return Receipt, Priority, First Class, FedEx, UPS
+- **Batch mail** — send up to 10,000 pieces from a CSV, volume discounts at 500/1000/5000 pieces
+- **Webhook notifications** — HMAC-signed JSON payloads fire on every status transition
+- **MAILBOX.md standing instructions** — configure rules for outbound mail handling
+- **Human-in-the-loop** — write "needs approval" and the action pauses for human approval
 - **Multi-channel notifications** — webhooks, email, SMS, Slack, Discord
+
+### Coming soon — inbound receiving address
+- **Real mailing address** — CMRA-licensed street address in Southern California (Utah/Nevada next)
+- **Inbound mail processing** — every piece photographed, scanned, and classified on arrival
+- **Actions via API** — scan, forward, photograph, hold, shred, dispose, return to sender
+- **Agent memory** — tag and annotate mail with persistent notes and metadata
 
 ## Plans
 
-| Plan | Price | What you get |
-|------|-------|-------------|
-| **Virtual Mailbox** | $2/mo | Real CMRA address, 10 inbound mail pieces/mo, scan on arrival, inbound + outbound mail, 14-day storage |
-| **Outbound Only** | $0/mo | Send letters via API, $0.30/page printing + actual carrier postage, photo proof, no inbound address |
+| Plan | Price | Status | What you get |
+|------|-------|--------|-------------|
+| **Outbound Only** | $0/mo | **Live now** | Send letters via API, $0.30/page printing + actual carrier postage, photo proof, no inbound address |
+| **Virtual Mailbox** | $5/mo | **Coming soon** | Real CMRA address (SoCal first, then UT/NV), 10 inbound pieces/mo ($1/ea additional), scan on arrival, inbound + outbound mail — sign up now to reserve |
 
 Outbound postage (both plans): USPS First Class from $0.78, Priority $11.95 flat rate, Certified $6.08, FedEx/UPS zone-based. Color printing +$0.25/page.
 
@@ -311,16 +318,14 @@ Full API reference: https://mailbox.bot/llms-full.txt
 ## When to use this skill
 
 Trigger when user says:
-- "I need a mailing address for my agent"
-- "Can my agent receive mail?"
-- "How do I receive postal mail via API?"
 - "My agent needs to send a letter"
 - "Can my agent send certified mail?"
+- "I need to mail a PDF via API"
 - "I need my agent to handle legal correspondence"
-- "How do I get webhook notifications for mail arrivals?"
-- "Can my agent manage my mail automatically?"
-- "I need a registered agent address"
-- "My agent needs to respond to an IRS notice"
+- "How do I send physical mail programmatically?"
+- "Can my agent send batch mailings?"
+- "I need a mailing address for my agent" — note: inbound addresses coming soon; outbound-only is available now
+- "Can my agent receive mail?" — note: inbound receiving is coming soon (SoCal first, then UT/NV)
 
 **Action flow:**
 1. Check for API key (`MAILBOX_BOT_API_KEY`). If present, use the API directly.
