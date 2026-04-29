@@ -275,6 +275,28 @@ curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{id}/scan" \
 
 Scan types: `label`, `envelope`, `document`, `content`
 
+### Send outbound mail
+
+```bash
+curl -X POST "$MAILBOX_BOT_URL/api/v1/mail" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
+  -H "X-Mailbox-MD-Version: 1" \
+  -F 'document=@letter.pdf' \
+  -F 'recipient_name=Acme Corp' \
+  -F 'recipient_line1=123 Main St' \
+  -F 'recipient_city=Los Angeles' \
+  -F 'recipient_state=CA' \
+  -F 'recipient_zip=90001' \
+  -F 'return_name=My Company LLC' \
+  -F 'return_line1=100 Main St' \
+  -F 'return_city=Austin' \
+  -F 'return_state=TX' \
+  -F 'return_zip=78701' \
+  -F 'mail_class=first_class'
+```
+
+Return address fields (`return_name`, `return_line1`, `return_line2`, `return_city`, `return_state`, `return_zip`) are optional — if omitted, the member's saved return address from their profile is used.
+
 ### Webhook settings
 
 ```bash
