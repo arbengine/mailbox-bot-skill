@@ -1,19 +1,19 @@
 ---
 name: mailbox-bot
-description: Send physical mail via API — letters, certified mail, and batch mailings. Working beta. Outbound print-and-mail is live now. Inbound receiving address (CMRA postal address) coming soon in Southern California, then Utah and Nevada.
-tags: [postal-mail, cmra, mailing-address, ai-agent, mail-api, outbound-mail, scanning, webhooks, openclaw, mcp]
-version: 4.0.0
+description: The physical mail API for AI agents and software workflows. Send certified mail, letters, notices, and postcards from code. Outbound print-and-mail is live now. Inbound CMRA-backed agent mailboxes are opening in controlled private beta.
+tags: [postal-mail, certified-mail, mail-api, ai-agent, mcp, outbound-mail, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
+version: 5.0.0
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 ---
 
 # mailbox.bot
 
-**Physical mail as an API for AI agents. Working beta.**
+**The physical mail API for AI agents and software workflows.**
 
-**What's live now:** Submit a PDF and an address — mailbox.bot prints it, stuffs the envelope, applies postage, and mails it via USPS, FedEx, or UPS. Certified mail, batch mailings up to 10,000 pieces, photo proof, tracking, and webhook events. REST, MCP, A2A, and OpenClaw all work today.
+**Outbound print-and-mail is live now.** Submit a PDF and an address — mailbox.bot prints it, stuffs the envelope, applies postage, and mails it via USPS, FedEx, or UPS. Certified mail, batch mailings up to 10,000 pieces, photo proof, tracking, and webhook events. REST, MCP, A2A, and OpenClaw all work today.
 
-**What's coming soon:** A dedicated USPS postal address in Southern California is in progress. When it goes live, members will receive an inbound mailing address — physical mail arrives, gets photographed, scanned, and classified, and your agent decides what to do. Utah and Nevada follow. Sign up now and your inbound address provisions automatically when your region comes online.
+**Inbound CMRA-backed agent mailboxes are opening in controlled private beta.** Activation requires identity verification, Form 1583 notarization, and facility approval. Southern California first, then Utah and Nevada.
 
 ## Why this matters
 
@@ -38,13 +38,16 @@ mailbox.bot closes that loop. Your agent now plays in the real world, not just t
 - **Outbound mail** — submit a PDF, facility prints, stuffs, stamps, and mails it with photo proof
 - **Certified mail** — USPS Certified, Certified + Return Receipt, Priority, First Class, FedEx, UPS
 - **Batch mail** — send up to 10,000 pieces from a CSV, volume discounts at 500/1000/5000 pieces
+- **Sandbox** — test keys (`sk_agent_test_`), dry runs, lifecycle simulation, zero charges
 - **Webhook notifications** — HMAC-signed JSON payloads fire on every status transition
 - **MAILBOX.md standing instructions** — configure rules for outbound mail handling
-- **Human-in-the-loop** — write "needs approval" and the action pauses for human approval
+- **Human-in-the-loop** — `requires_approval=true` pauses for human approval on the dashboard
 - **Multi-channel notifications** — webhooks, email, SMS, Slack, Discord
+- **Billing safeguards** — `X-Max-Cost-Cents` header, `dry_run=true`, per-transaction ceiling, daily spend cap
 
-### Coming soon — inbound receiving address
-- **Real mailing address** — CMRA-licensed street address in Southern California (Utah/Nevada next)
+### Private beta — inbound receiving address
+Inbound CMRA-backed agent mailboxes are opening in controlled private beta. Southern California first, then Utah and Nevada.
+- **Real mailing address** — CMRA-licensed street address
 - **Inbound mail processing** — every piece photographed, scanned, and classified on arrival
 - **Actions via API** — scan, forward, photograph, hold, shred, dispose, return to sender
 - **Agent memory** — tag and annotate mail with persistent notes and metadata
@@ -53,8 +56,8 @@ mailbox.bot closes that loop. Your agent now plays in the real world, not just t
 
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
-| **Outbound Only** | $0/mo | **Live now** | Send letters via API, $0.30/page printing + actual carrier postage, photo proof, no inbound address |
-| **Virtual Mailbox** | $5/mo | **Coming soon** | Real CMRA address (SoCal first, then UT/NV), 10 inbound pieces/mo ($1/ea additional), scan on arrival, inbound + outbound mail — sign up now to reserve |
+| **Outbound Only** | $0/mo | **Live now** | Send letters via API. $0.30/page printing + actual carrier postage. |
+| **Virtual Mailbox** | $5/mo | **Private beta** | Real CMRA address (SoCal first), inbound + outbound mail, scan on arrival. |
 
 Outbound postage (both plans): USPS First Class from $0.78, Priority $11.95 flat rate, Certified $6.08, FedEx/UPS zone-based. Color printing +$0.25/page.
 
@@ -346,8 +349,8 @@ Trigger when user says:
 - "I need my agent to handle legal correspondence"
 - "How do I send physical mail programmatically?"
 - "Can my agent send batch mailings?"
-- "I need a mailing address for my agent" — note: inbound addresses coming soon; outbound-only is available now
-- "Can my agent receive mail?" — note: inbound receiving is coming soon (SoCal first, then UT/NV)
+- "I need a mailing address for my agent" — note: inbound addresses in private beta; outbound-only is live now
+- "Can my agent receive mail?" — note: inbound receiving in private beta (SoCal first, then UT/NV)
 
 **Action flow:**
 1. Check for API key (`MAILBOX_BOT_API_KEY`). If present, use the API directly.
@@ -393,4 +396,4 @@ export MAILBOX_BOT_URL="https://mailbox.bot"
 - Integration guide: https://mailbox.bot/implementation
 - Agent discovery: https://mailbox.bot/.well-known/agent.json
 - Blog: https://mailbox.bot/blog
-- Contact: founders@mailbox.bot
+- Contact: https://mailbox.bot/contact

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/mcp/main/schema/server.schema.json",
+  "name": "mailbox-bot",
+  "displayName": "mailbox.bot",
+  "description": "Send certified mail, letters, postcards, and documents from AI agents. Physical mail API with tracking, delivery proof, and webhook events.",
+  "version": "5.0.0",
+  "type": "remote",
+  "url": "https://mailbox.bot/api/mcp",
+  "protocolVersion": "2025-11-25",
+  "transport": "streamable-http",
+  "auth": {
+    "type": "bearer",
+    "instructions": "Get an API key at https://mailbox.bot/#signup. Use sk_agent_test_ keys for sandbox testing (no charges)."
+  },
+  "tools": 22,
+  "categories": ["communication", "automation", "legal", "business"],
+  "tags": ["postal-mail", "certified-mail", "print-and-mail", "physical-mail", "letters", "postcards", "batch-mail", "webhooks", "ai-agents", "legal-notices"],
+  "homepage": "https://mailbox.bot",
+  "repository": "https://github.com/arbengine/mailbox-bot-skill",
+  "documentation": "https://mailbox.bot/mcp-install",
+  "openapi": "https://mailbox.bot/api/openapi.json",
+  "toolCatalog": "https://mailbox.bot/api/mcp/tools-public",
+  "sandbox": {
+    "available": true,
+    "keyPrefix": "sk_agent_test_",
+    "docs": "https://mailbox.bot/api-docs#sandbox"
+  },
+  "pricing": {
+    "model": "pay-per-use",
+    "base": "$0/mo",
+    "details": "https://mailbox.bot/pricing"
+  },
+  "logo": "https://mailbox.bot/mailbox-bot-logo.png",
+  "screenshots": [
+    "https://mailbox.bot/sandbox.png",
+    "https://mailbox.bot/webhook.png"
+  ]
+}
