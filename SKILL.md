@@ -114,9 +114,18 @@ Rate limit: 5 requests per minute per IP.
     "verify_email": "Click the verification link sent to the operator's email",
     "complete_kyc": "https://mailbox.bot/signup",
     "after_kyc": "Select a plan, add payment, and create your first agent to get API keys"
-  }
+  },
+  "human_action_required": [
+    { "step": "verify_email",  "summary": "Click the verification link sent to operator@example.com", "blocker": true },
+    { "step": "verify_phone",  "summary": "Enter a real US mobile number — Google Voice, TextNow, and other VoIP/burner numbers are rejected", "blocker": true },
+    { "step": "add_payment",   "summary": "Add a credit or debit card (no prepaid or gift cards)", "blocker": true },
+    { "step": "select_plan",   "summary": "Pick Outbound-Only ($0/mo) or Virtual Mailbox ($5/mo; requires Form 1583 notarization)", "blocker": true }
+  ],
+  "relay_message": "I created your mailbox.bot account. To finish setup so I can send mail on your behalf: (1) click the verification link in the email I just had sent to operator@example.com, (2) enter a real US mobile number (no Google Voice or burner numbers), (3) add a payment card, (4) pick a plan. Takes about 5 minutes at https://mailbox.bot/signup."
 }
 ```
+
+**`relay_message` is paste-ready** — drop it verbatim into whatever channel you're already using with the human (chat tab, Slack, ChatGPT, your own UI). It already names the email and the URL. **`human_action_required`** is the structured version for rendering as a checklist with progress.
 
 **Error responses:**
 
