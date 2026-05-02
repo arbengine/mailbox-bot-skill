@@ -7,6 +7,7 @@
 [![Sandbox](https://img.shields.io/badge/Sandbox-test_keys-1D4ED8?style=flat)](https://mailbox.bot/api-docs#sandbox)
 [![License](https://img.shields.io/badge/License-Proprietary-gray?style=flat)]()
 [![Status](https://img.shields.io/badge/Status-Outbound_Live-34d399?style=flat)]()
+[![smithery badge](https://smithery.ai/badge/reportinganddata/mailbox-bot)](https://smithery.ai/servers/reportinganddata/mailbox-bot)
 
 **Outbound print-and-mail is live now. Inbound CMRA-backed agent mailboxes are opening in controlled private beta.**
 
