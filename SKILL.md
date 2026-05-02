@@ -38,7 +38,7 @@ mailbox.bot closes that loop. Your agent now plays in the real world, not just t
 - **Outbound mail** — submit a PDF, facility prints, stuffs, stamps, and mails it with photo proof
 - **Certified mail** — USPS Certified, Certified + Return Receipt, Priority, First Class, FedEx, UPS
 - **Batch mail** — send up to 10,000 pieces from a CSV, volume discounts at 500/1000/5000 pieces
-- **Sandbox** — test keys (`sk_agent_test_`), dry runs, lifecycle simulation, zero charges
+- **Sandbox** — test keys (`sk_agent_test_`) work on every production endpoint with zero charges; dry-run cost preview; lifecycle simulation via `POST /v1/test/mail/:id/advance`; dashboard segmentation under `/dashboard/mail` and `/dashboard/webhooks` Sandbox tabs
 - **Webhook notifications** — HMAC-signed JSON payloads fire on every status transition
 - **MAILBOX.md standing instructions** — configure rules for outbound mail handling
 - **Human-in-the-loop** — `requires_approval=true` pauses for human approval on the dashboard
@@ -212,9 +212,10 @@ All authenticated endpoints require:
 Authorization: Bearer $MAILBOX_BOT_API_KEY
 ```
 
-Two key types:
+Three key types:
 - **Member keys** (`sk_live_`) — full account access, all scopes
 - **Agent keys** (`sk_agent_`) — scoped to a single agent
+- **Sandbox keys** (`sk_agent_test_`) — same scopes as an agent key but enables sandbox mode: full validation, real cost preview (`estimated_live_cost_cents`), HMAC-signed webhooks fire — but **no Stripe charge and no physical mail**. Use the same endpoints; swap key prefix to go live.
 
 ### Get mailbox address
 
@@ -299,6 +300,57 @@ curl -X POST "$MAILBOX_BOT_URL/api/v1/mail" \
 ```
 
 Return address fields (`return_name`, `return_line1`, `return_line2`, `return_city`, `return_state`, `return_zip`) are optional — if omitted, the member's saved return address from their profile is used.
+
+### Sandbox — test without charges
+
+**Create a sandbox key:**
+
+```bash
+curl -X POST "$MAILBOX_BOT_URL/api/v1/agents/$AGENT_ID/credentials" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"environment": "test", "scopes": ["mail.send"]}'
+```
+
+Returns an `sk_agent_test_…` key. Use it on **any production endpoint** — same request format, same responses. The differences:
+
+- `cost_cents: 0` (no Stripe charge)
+- `estimated_live_cost_cents` shows what live would have cost
+- `cost_breakdown` itemizes printing + postage + color
+- Response header `X-Test-Mode: true`
+- Webhooks fire with `test_mode: true` in the payload
+- No facility fulfillment
+
+**Cost preview without committing** (works with live or sandbox keys):
+
+```bash
+curl -X POST "$MAILBOX_BOT_URL/api/v1/mail" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
+  -F 'document=@letter.pdf' \
+  -F 'recipient_name=Acme' -F 'recipient_line1=...' \
+  -F 'mail_class=certified' \
+  -F 'dry_run=true'
+```
+
+Returns the cost breakdown plus a `warnings` array (e.g. `force_approval` policy active, daily-piece limit hit) — no record created, no charge.
+
+**Synthetic helpers** — only 4 routes exist under `/v1/test/*`. Everything else uses the live route with a sandbox key:
+
+| Route | Why it exists |
+|---|---|
+| `POST /v1/test/mail` | Submit a sandbox piece without a real PDF |
+| `POST /v1/test/mail/:id/advance` | Step the lifecycle (`submitted → ready → mailed → delivered`), fire each webhook |
+| `POST /v1/test/packages` | Synthesize an inbound package — no real mail required |
+| `POST /v1/test/webhook` | Fire a custom event to your webhook URL for signature testing |
+
+**Agent key policies** (set when minting any `sk_agent_` or `sk_agent_test_` key):
+
+- `force_approval: true` — every submission routes to `pending_approval` regardless of `requires_approval`
+- `max_daily_pieces: N` — caps outbound mail per 24h window per key
+
+**Cost cap header** — set `X-Max-Cost-Cents: 5000` on `POST /v1/mail` to reject (with 422) before any charge if the computed cost exceeds the cap.
+
+**Dashboard visibility** — sandbox submissions appear under the **Sandbox** tab on `/dashboard/mail` and `/dashboard/webhooks`, badged in orange. Live and sandbox data never co-mingle.
 
 ### Webhook settings
 
