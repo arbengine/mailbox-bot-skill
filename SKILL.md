@@ -158,7 +158,7 @@ Your agent can connect via any of these:
 |----------|----------|---------|
 | REST API (v1) | `https://mailbox.bot/api/v1` | Full CRUD for agents, mailboxes, mail, actions, rules, webhooks |
 | MCP | `https://mailbox.bot/api/mcp` | 22 tools for LLM integration (JSON-RPC 2.0, spec 2025-11-25) |
-| A2A | `https://mailbox.bot/api/a2a` | 9 skills for agent-to-agent task execution (v0.3) |
+| A2A | `https://mailbox.bot/api/a2a` | 10 skills for agent-to-agent task execution (v0.3) |
 | OpenClaw | `https://mailbox.bot/.well-known/agent.json` | Multi-protocol agent card, WebSocket gateway + webhooks |
 
 ### MCP setup (Claude Desktop)
@@ -208,7 +208,7 @@ Ref **MB-6E1A**
 - **Needs approval** → email + SMS with dashboard link
 ```
 
-Integration guide: https://mailbox.bot/implementation
+Integration guide: https://mailbox.bot/for-agents
 
 ---
 
@@ -451,10 +451,11 @@ export MAILBOX_BOT_URL="https://mailbox.bot"
 
 - Website: https://mailbox.bot
 - Full API reference: https://mailbox.bot/llms-full.txt
+- OpenAPI spec: https://mailbox.bot/openapi.json
 - API docs: https://mailbox.bot/api-docs
 - Pricing: https://mailbox.bot/pricing
 - MCP install: https://mailbox.bot/mcp-install
-- Integration guide: https://mailbox.bot/implementation
+- For agents: https://mailbox.bot/for-agents
 - Agent discovery: https://mailbox.bot/.well-known/agent.json
 - Blog: https://mailbox.bot/blog
 - Contact: https://mailbox.bot/contact
