@@ -1,6 +1,6 @@
 ---
 name: mailbox-bot
-description: The physical mail API for AI agents and software workflows. Send certified mail, letters, notices, and postcards from code. Outbound print-and-mail is live now. Inbound CMRA-backed agent mailboxes are opening in controlled private beta.
+description: Postal mail API for AI agents and software workflows. Send certified mail, letters, notices, and postcards from code. Outbound print-and-mail is live now. Inbound CMRA-backed agent mailboxes are opening in controlled private beta.
 tags: [postal-mail, certified-mail, mail-api, ai-agent, mcp, outbound-mail, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
 version: 5.0.0
 author: mailbox.bot
@@ -9,7 +9,7 @@ repository: https://github.com/arbengine/mailbox-bot-skill
 
 # mailbox.bot
 
-**The physical mail API for AI agents and software workflows.**
+**The postal mail API for AI agents and software workflows.**
 
 **Outbound print-and-mail is live now.** Submit a PDF and an address — mailbox.bot prints it, stuffs the envelope, applies postage, and mails it via USPS, FedEx, or UPS. Certified mail, batch mailings up to 10,000 pieces, photo proof, tracking, and webhook events. REST, MCP, A2A, and OpenClaw all work today.
 
