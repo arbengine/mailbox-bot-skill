@@ -22,7 +22,7 @@
 - SKILL.md with full API reference, decision framework, and configuration
 - Outbound mail: send letters, certified mail, batch mailings via API
 - MAILBOX.md standing instructions with human-in-the-loop approval gates
-- MCP (22 tools), A2A (9 skills), OpenClaw, REST protocols
+- MCP (29 tools), A2A (9 skills), OpenClaw, REST protocols
 - Webhook notifications with HMAC-SHA256 signing
 - Multi-channel notifications: email, SMS, Slack, Discord
 

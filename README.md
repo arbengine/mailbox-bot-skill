@@ -19,7 +19,7 @@ POST a PDF → we print, stuff, stamp, mail → tracking + proof + webhooks
 
 ## Install
 
-### MCP (Claude Desktop, Cursor, Cline)
+### MCP server
 
 Add to your MCP config:
 
@@ -83,7 +83,7 @@ Inbound CMRA-backed agent mailboxes are opening in controlled private beta. Acti
 | Protocol | Endpoint | Details |
 |----------|----------|---------|
 | REST API | `https://mailbox.bot/api/v1` | Full CRUD, OpenAPI 3.1 spec |
-| MCP | `https://mailbox.bot/api/mcp` | 22 tools, JSON-RPC 2.0 |
+| MCP | `https://mailbox.bot/api/mcp` | 29 tools, JSON-RPC 2.0 |
 | A2A | `https://mailbox.bot/api/a2a` | Agent-to-agent task execution |
 | OpenClaw | `https://mailbox.bot/.well-known/agent.json` | Multi-protocol agent card |
 

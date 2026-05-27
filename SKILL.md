@@ -157,13 +157,13 @@ Your agent can connect via any of these:
 | Protocol | Endpoint | Details |
 |----------|----------|---------|
 | REST API (v1) | `https://mailbox.bot/api/v1` | Full CRUD for agents, mailboxes, mail, actions, rules, webhooks |
-| MCP | `https://mailbox.bot/api/mcp` | 22 tools for LLM integration (JSON-RPC 2.0, spec 2025-11-25) |
+| MCP | `https://mailbox.bot/api/mcp` | 29 tools for LLM integration, including inbound document context and outbound mail (JSON-RPC 2.0, spec 2025-11-25) |
 | A2A | `https://mailbox.bot/api/a2a` | 10 skills for agent-to-agent task execution (v0.3) |
 | OpenClaw | `https://mailbox.bot/.well-known/agent.json` | Multi-protocol agent card, WebSocket gateway + webhooks |
 
-### MCP setup (Claude Desktop)
+### MCP setup
 
-Add to your `claude_desktop_config.json`:
+Add this to any MCP client that supports remote HTTP servers:
 
 ```json
 {

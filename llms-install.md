@@ -1,14 +1,14 @@
 # mailbox.bot — Install Guide for AI Coding Agents
 
-> For Cline, Cursor, Claude Code, and other AI development tools that install MCP servers.
+> For MCP-capable AI clients such as Cline, Cursor, Claude Code, Claude Desktop, and other development tools.
 
 ## MCP Server (Remote — no local install needed)
 
-mailbox.bot is a remote MCP server. No npm install, no Docker, no local process. Add this config and you're connected to 22 tools for physical mail.
+mailbox.bot is a remote MCP server. For clients that support remote HTTP MCP servers, no npm install, Docker, or local process is required. Add this config and you're connected to 29 tools for outbound mail plus inbound document context.
 
-### Claude Desktop / Claude Code
+### Generic remote HTTP config
 
-Add to `claude_desktop_config.json`:
+Add to your MCP client config:
 
 ```json
 {
@@ -16,6 +16,27 @@ Add to `claude_desktop_config.json`:
     "mailbox-bot": {
       "url": "https://mailbox.bot/api/mcp",
       "headers": { "Authorization": "Bearer sk_agent_..." }
+    }
+  }
+}
+```
+
+### Command bridge config
+
+For clients that expect a local command, bridge the same remote server with `mcp-remote`:
+
+```json
+{
+  "mcpServers": {
+    "mailbox-bot": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mailbox.bot/api/mcp",
+        "--header",
+        "Authorization: Bearer sk_agent_..."
+      ]
     }
   }
 }
