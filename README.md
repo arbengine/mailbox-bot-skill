@@ -1,4 +1,4 @@
-# Send Mail and Handle Inbound Postal Context from AI Agents
+# mailbox.bot — Postal Mail API and MCP Server for AI Agents
 
 [![Website](https://img.shields.io/badge/Website-mailbox.bot-1D4ED8?style=flat)](https://mailbox.bot)
 [![API Docs](https://img.shields.io/badge/API_Docs-api--docs-1D4ED8?style=flat)](https://mailbox.bot/api-docs)
@@ -9,12 +9,14 @@
 [![Status](https://img.shields.io/badge/Status-Two_Workflows_Live-34d399?style=flat)]()
 [![smithery badge](https://smithery.ai/badge/reportinganddata/mailbox-bot)](https://smithery.ai/servers/reportinganddata/mailbox-bot)
 
+This repository is the public discovery and integration package for mailbox.bot. The production service runs at [mailbox.bot](https://mailbox.bot).
+
 **Two live workflows today: outbound physical mail via API, and inbound forwarded document context for reply loops. Managed receiving / CMRA-style addresses are opening in controlled private beta.**
 
 mailbox.bot is the postal mail API for AI agents and software workflows. Send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. For inbound, operators can forward scans, photos, PDFs, virtual mailbox notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and send outbound mail on the same postal thread.
 
-```
-forward scans/docs → OCR-backed context + draft reply → POST /v1/mail
+```text
+forward scans/docs -> OCR-backed context + draft reply -> POST /v1/mail
 ```
 
 ## Two live workflows
@@ -126,6 +128,9 @@ No SDK required — all integrations use the REST API via standard HTTP librarie
 - [API Docs](https://mailbox.bot/api-docs)
 - [Full API Reference (LLM-friendly)](https://mailbox.bot/llms-full.txt)
 - [MCP Install Guide](https://mailbox.bot/mcp-install)
+- [MCP Server Card](https://mailbox.bot/.well-known/mcp/server-card.json)
+- [Public MCP Tool Catalog](https://mailbox.bot/api/mcp/tools-public)
+- [Official MCP Registry Name](https://registry.modelcontextprotocol.io) — `bot.mailbox/mailbox`
 - [Sandbox & Test Keys](https://mailbox.bot/api-docs#sandbox)
 - [OpenAPI Spec](https://mailbox.bot/openapi.json)
 - [Agent Discovery](https://mailbox.bot/.well-known/agent.json)
