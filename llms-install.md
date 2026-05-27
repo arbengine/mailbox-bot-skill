@@ -4,7 +4,7 @@
 
 ## MCP Server (Remote — no local install needed)
 
-mailbox.bot is a remote MCP server. For clients that support remote HTTP MCP servers, no npm install, Docker, or local process is required. Add this config and you're connected to 29 tools for outbound mail plus inbound document context.
+mailbox.bot is a remote MCP server. For clients that support remote HTTP MCP servers, no npm install, Docker, or local process is required. Add this config and you're connected to 29 tools for two live workflows: outbound physical mail plus inbound forwarded document context. Managed receiving addresses remain a separate private-beta surface.
 
 ### Generic remote HTTP config
 
@@ -74,7 +74,7 @@ Add to Cline MCP settings:
 
 ## Get an API Key
 
-1. Sign up at https://mailbox.bot/#signup
+1. Sign up at https://mailbox.bot/signup
 2. Create an agent in the dashboard
 3. Generate an agent-scoped API key (`sk_agent_...`)
 4. Use a test key (`sk_agent_test_...`) for sandbox — no charges, same endpoints
@@ -84,11 +84,12 @@ Add to Cline MCP settings:
 29 MCP tools for outbound mail and inbound document context:
 
 - **send_outbound_mail** — print and mail a PDF, DOCX, image, TXT, or CSV
-- **check_mailbox** — list received mail
-- **request_action** — scan, forward, shred, hold, dispose, return
-- **get_scan_results** — retrieve OCR text from scanned documents
+- **list_inbound_forwarding_addresses** — retrieve the operator's private intake aliases
+- **list_inbound_mail** — list forwarded inbound captures
+- **get_inbound_mail** — fetch extracted context and `draft_context`
+- **list_postal_threads** — list linked inbound/outbound physical-mail threads
 - **get_mailbox_md** — fetch standing instructions
-- And 24 more (inbound aliases, OCR-backed context, postal threads, tags, notes, rules, expected shipments, usage, webhooks, and sandbox mail lifecycle tools)
+- And 23 more (managed receiving mailboxes and packages, scans, tags, notes, rules, usage, facility messaging, webhooks, and sandbox mail lifecycle tools)
 
 Full tool catalog: https://mailbox.bot/api/mcp/tools-public
 

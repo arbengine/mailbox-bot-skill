@@ -1,8 +1,8 @@
 ---
 name: mailbox-bot
-description: Postal mail API for AI agents and software workflows. Send certified mail, letters, notices, and postcards from code. Outbound print-and-mail is live now. Inbound CMRA-backed agent mailboxes are opening in controlled private beta.
-tags: [postal-mail, certified-mail, mail-api, ai-agent, mcp, outbound-mail, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
-version: 5.0.0
+description: Postal mail API for AI agents and software workflows. Two live workflows: outbound physical mail plus forwarded inbound document context for drafting and reply loops. Managed receiving / CMRA addresses are in controlled private beta.
+tags: [postal-mail, certified-mail, mail-api, ai-agent, mcp, outbound-mail, inbound-context, forwarding, postal-threads, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
+version: 5.1.0
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 ---
@@ -11,9 +11,16 @@ repository: https://github.com/arbengine/mailbox-bot-skill
 
 **The postal mail API for AI agents and software workflows.**
 
-**Outbound print-and-mail is live now.** Submit a PDF and an address — mailbox.bot prints it, stuffs the envelope, applies postage, and mails it via USPS, FedEx, or UPS. Certified mail, batch mailings up to 10,000 pieces, photo proof, tracking, and webhook events. REST, MCP, A2A, and OpenClaw all work today.
+**Two live workflows are available now.** Outbound print-and-mail lets your agent send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. Forwarded inbound context lets operators send scans, photos, PDFs, provider notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and keep the same postal thread attached to the outbound send.
 
-**Inbound CMRA-backed agent mailboxes are opening in controlled private beta.** Activation requires identity verification, Form 1583 notarization, and facility approval. Southern California first, then Utah and Nevada.
+**Managed receiving / CMRA-style agent mailboxes are opening in controlled private beta.** Activation requires identity verification, Form 1583 notarization, and facility approval. Southern California first, then Utah and Nevada.
+
+## Two live workflows
+
+1. **Outbound physical mail API** — send through `POST /v1/mail`.
+2. **Inbound mail context API** — discover the forwarding alias with `GET /v1/inbound-forwarding-addresses`, read captures with `/v1/inbound*`, retrieve linked history with `/v1/postal-threads*`, and send a linked physical reply with `POST /v1/mail`.
+
+Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Managed receiving addresses remain separate private-beta functionality.
 
 ## Why this matters
 
@@ -36,6 +43,9 @@ mailbox.bot closes that loop. Your agent now plays in the real world, not just t
 
 ### Live now
 - **Outbound mail** — submit a PDF, facility prints, stuffs, stamps, and mails it with photo proof
+- **Inbound document context** — private forwarding aliases on `forward.mailbox.bot` capture scans, photos, PDFs, provider notices, and human notes from the addresses operators already use
+- **Draft context** — `GET /v1/inbound/:id?include=drafting` returns extracted context plus `draft_context` for linked physical replies
+- **Postal threads** — `/v1/postal-threads*` ties inbound captures and outbound sends together
 - **Certified mail** — USPS Certified, Certified + Return Receipt, Priority, First Class, FedEx, UPS
 - **Batch mail** — send up to 10,000 pieces from a CSV, volume discounts at 500/1000/5000 pieces
 - **Sandbox** — test keys (`sk_agent_test_`) work on every production endpoint with zero charges; dry-run cost preview; lifecycle simulation via `POST /v1/test/mail/:id/advance`; dashboard segmentation under `/dashboard/mail` and `/dashboard/webhooks` Sandbox tabs
@@ -45,8 +55,8 @@ mailbox.bot closes that loop. Your agent now plays in the real world, not just t
 - **Multi-channel notifications** — webhooks, email, SMS, Slack, Discord
 - **Billing safeguards** — `X-Max-Cost-Cents` header, `dry_run=true`, per-transaction ceiling, daily spend cap
 
-### Private beta — inbound receiving address
-Inbound CMRA-backed agent mailboxes are opening in controlled private beta. Southern California first, then Utah and Nevada.
+### Private beta — managed receiving addresses
+Managed receiving / CMRA-style agent mailboxes are opening in controlled private beta. This is separate from the live forwarded inbound context flow. Southern California first, then Utah and Nevada.
 - **Real mailing address** — CMRA-licensed street address
 - **Inbound mail processing** — every piece photographed, scanned, and classified on arrival
 - **Actions via API** — scan, forward, photograph, hold, shred, dispose, return to sender
@@ -156,7 +166,7 @@ Your agent can connect via any of these:
 
 | Protocol | Endpoint | Details |
 |----------|----------|---------|
-| REST API (v1) | `https://mailbox.bot/api/v1` | Full CRUD for agents, mailboxes, mail, actions, rules, webhooks |
+| REST API (v1) | `https://mailbox.bot/api/v1` | Outbound mail, inbound context, and managed receiving beta surfaces |
 | MCP | `https://mailbox.bot/api/mcp` | 29 tools for LLM integration, including inbound document context and outbound mail (JSON-RPC 2.0, spec 2025-11-25) |
 | A2A | `https://mailbox.bot/api/a2a` | 10 skills for agent-to-agent task execution (v0.3) |
 | OpenClaw | `https://mailbox.bot/.well-known/agent.json` | Multi-protocol agent card, WebSocket gateway + webhooks |
@@ -226,16 +236,48 @@ Three key types:
 - **Agent keys** (`sk_agent_`) — scoped to a single agent
 - **Sandbox keys** (`sk_agent_test_`) — same scopes as an agent key but enables sandbox mode: full validation, real cost preview (`estimated_live_cost_cents`), HMAC-signed webhooks fire — but **no Stripe charge and no physical mail**. Use the same endpoints; swap key prefix to go live.
 
-### Get mailbox address
+### Inbound context loop (live now)
+
+**Find the forwarding alias:**
+
+```bash
+curl -s "$MAILBOX_BOT_URL/api/v1/inbound-forwarding-addresses" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
+```
+
+**List captured inbound items:**
+
+```bash
+curl -s "$MAILBOX_BOT_URL/api/v1/inbound" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
+```
+
+**Fetch extracted context and draft guidance:**
+
+```bash
+curl -s "$MAILBOX_BOT_URL/api/v1/inbound/{id}?include=drafting" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
+```
+
+**Inspect linked postal thread history:**
+
+```bash
+curl -s "$MAILBOX_BOT_URL/api/v1/postal-threads/{id}" \
+  -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
+```
+
+Use `draft_context`, `inbound_capture_id`, and `postal_mail_thread_id` to prepare a linked physical reply with `POST /v1/mail`.
+
+### Managed receiving beta — get mailbox address
 
 ```bash
 curl -s "$MAILBOX_BOT_URL/api/v1/mailboxes" \
   -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
 ```
 
-Returns the physical mailing address your agent can use immediately.
+Returns provisioned managed receiving addresses for accounts approved for the physical-address beta.
 
-### List mail and packages
+### Managed receiving beta — list mail and packages
 
 ```bash
 curl -s "$MAILBOX_BOT_URL/api/v1/packages?status=received" \
@@ -244,14 +286,14 @@ curl -s "$MAILBOX_BOT_URL/api/v1/packages?status=received" \
 
 Filters: `status`, `carrier`, `since`, `before`, `limit`, `offset`
 
-### Get item details
+### Managed receiving beta — get item details
 
 ```bash
 curl -s "$MAILBOX_BOT_URL/api/v1/packages/{id}" \
   -H "Authorization: Bearer $MAILBOX_BOT_API_KEY"
 ```
 
-### Request an action
+### Managed receiving beta — request an action
 
 ```bash
 curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{id}/actions" \
@@ -262,7 +304,7 @@ curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{id}/actions" \
 
 Action types: `scan`, `open_and_scan`, `photograph`, `forward`, `shred`, `dispose`, `return_to_sender`, `hold`
 
-### Forward mail
+### Managed receiving beta — forward mail
 
 ```bash
 curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{id}/forward" \
@@ -277,7 +319,7 @@ curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{id}/forward" \
   }'
 ```
 
-### Request a scan
+### Managed receiving beta — request a scan
 
 ```bash
 curl -X POST "$MAILBOX_BOT_URL/api/v1/packages/{id}/scan" \
@@ -293,7 +335,8 @@ Scan types: `label`, `envelope`, `document`, `content`
 ```bash
 curl -X POST "$MAILBOX_BOT_URL/api/v1/mail" \
   -H "Authorization: Bearer $MAILBOX_BOT_API_KEY" \
-  -H "X-Mailbox-MD-Version: 1" \
+  -H "X-Mailbox-MD-Version: 3" \
+  -H "X-Max-Cost-Cents: 1500" \
   -F 'document=@letter.pdf' \
   -F 'recipient_name=Acme Corp' \
   -F 'recipient_line1=123 Main St' \
@@ -309,6 +352,8 @@ curl -X POST "$MAILBOX_BOT_URL/api/v1/mail" \
 ```
 
 Return address fields (`return_name`, `return_line1`, `return_line2`, `return_city`, `return_state`, `return_zip`) are optional — if omitted, the member's saved return address from their profile is used.
+
+To link the outbound mail to forwarded inbound context, also include `inbound_capture_id` and, when present, `postal_mail_thread_id`.
 
 ### Sandbox — test without charges
 
@@ -408,10 +453,12 @@ Trigger when user says:
 - "Can my agent send certified mail?"
 - "I need to mail a PDF via API"
 - "I need my agent to handle legal correspondence"
+- "Can my agent read a scanned notice and send a linked reply?"
+- "I need OCR'd mail context fed back into my agent"
 - "How do I send physical mail programmatically?"
 - "Can my agent send batch mailings?"
-- "I need a mailing address for my agent" — note: inbound addresses in private beta; outbound-only is live now
-- "Can my agent receive mail?" — note: inbound receiving in private beta (SoCal first, then UT/NV)
+- "I need a mailing address for my agent" — note: managed receiving addresses are in private beta; forwarded inbound context is live now
+- "Can my agent receive mail?" — note: forwarded inbound context is live now from existing addresses; managed receiving is private beta (SoCal first, then UT/NV)
 
 **Action flow:**
 1. Check for API key (`MAILBOX_BOT_API_KEY`). If present, use the API directly.
@@ -423,7 +470,15 @@ Trigger when user says:
 
 ## Decision framework
 
-When checking the mailbox:
+When handling forwarded inbound context from an existing address:
+
+1. **List forwarding aliases** — `GET /api/v1/inbound-forwarding-addresses`
+2. **List inbound captures** — `GET /api/v1/inbound`
+3. **Fetch drafting context** — `GET /api/v1/inbound/{id}?include=drafting`
+4. **Draft the reply** — use `draft_context`, then send via `POST /api/v1/mail` with `inbound_capture_id` and `postal_mail_thread_id` when present
+5. **Report back** — summarize what was received, extracted, and sent
+
+When checking a managed receiving mailbox (private beta):
 
 1. **List received mail** — `GET /api/v1/packages?status=received`
 2. **Triage by urgency** — government agency / legal notice → scan immediately. Known sender → check standing instructions. Junk mail → discard.

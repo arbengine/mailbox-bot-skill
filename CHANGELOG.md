@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.1.0] - 2026-05-27
+
+### Changed
+- Reframed the skill around two live workflows: outbound physical mail and forwarded inbound document context
+- Updated README and SKILL.md to distinguish live inbound context from managed receiving / CMRA private beta
+- Fixed MCP install docs to use current tool names such as `list_inbound_forwarding_addresses`, `list_inbound_mail`, and `get_inbound_mail`
+- Updated outbound examples to `X-Mailbox-MD-Version: 3` and canonical OpenAPI links to `https://mailbox.bot/openapi.json`
+- Refreshed marketplace metadata descriptions and tags to mention inbound context and postal threads
+
 ## [5.0.0] - 2026-05-01
 
 ### Changed
@@ -22,7 +31,7 @@
 - SKILL.md with full API reference, decision framework, and configuration
 - Outbound mail: send letters, certified mail, batch mailings via API
 - MAILBOX.md standing instructions with human-in-the-loop approval gates
-- MCP (29 tools), A2A (9 skills), OpenClaw, REST protocols
+- MCP (29 tools), A2A, OpenClaw, REST protocols
 - Webhook notifications with HMAC-SHA256 signing
 - Multi-channel notifications: email, SMS, Slack, Discord
 
