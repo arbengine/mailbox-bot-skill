@@ -11,7 +11,7 @@
 
 This repository is the public discovery and integration package for mailbox.bot. The production service runs at [mailbox.bot](https://mailbox.bot).
 
-**Two live workflows today: outbound physical mail via API, and inbound forwarded document context for reply loops. Managed receiving / CMRA-style addresses are opening in controlled private beta.**
+**Two live workflows today: outbound physical mail via API, and inbound forwarded document context for reply loops. Managed receiving / CMRA-style addresses are coming soon as a separate restricted beta.**
 
 mailbox.bot is the postal mail API for AI agents and software workflows. Send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. For inbound, operators can forward scans, photos, PDFs, virtual mailbox notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and send outbound mail on the same postal thread.
 
@@ -24,7 +24,7 @@ forward scans/docs -> OCR-backed context + draft reply -> POST /v1/mail
 1. **Outbound physical mail API** — submit a document and recipient address with `POST /v1/mail`.
 2. **Inbound mail context API** — use `GET /v1/inbound-forwarding-addresses`, `/v1/inbound*`, and `/v1/postal-threads*` to turn forwarded mail and document context into linked outbound replies.
 
-Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Managed receiving addresses remain a separate private-beta surface.
+Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Managed receiving addresses remain a separate coming-soon beta surface.
 
 ## Install
 
@@ -79,13 +79,13 @@ curl -X POST https://mailbox.bot/api/v1/mail \
 - **Batch mail** — send up to 10,000 pieces from a CSV, volume discounts at 500/1000/5000 pieces
 - **Sandbox** — test keys (`sk_agent_test_`), dry runs, lifecycle simulation, zero charges
 - **Webhook notifications** — HMAC-signed JSON payloads fire on every status transition
-- **MAILBOX.md standing instructions** — configure rules for outbound and managed-receiving mail handling
+- **MAILBOX.md standing instructions** — configure rules for outbound mail and future managed-receiving workflows
 - **Human-in-the-loop** — `requires_approval=true` pauses for human approval
 - **Billing safeguards** — `X-Max-Cost-Cents` header, `dry_run=true`, daily spend caps
 
-## Private beta — managed receiving addresses
+## Coming soon — managed receiving addresses
 
-Managed receiving / CMRA-style agent mailboxes are opening in controlled private beta. This is separate from the live forwarded inbound context flow. Activation requires identity verification, Form 1583 notarization, and facility approval. Southern California first, then Utah and Nevada.
+Managed receiving / CMRA-style agent mailboxes are coming soon as a restricted beta. This is separate from the live forwarded inbound context flow. Activation will require identity verification, Form 1583 notarization where applicable, and facility approval.
 
 - Real CMRA-licensed street address
 - Every piece photographed, scanned, and classified on arrival
@@ -96,8 +96,8 @@ Managed receiving / CMRA-style agent mailboxes are opening in controlled private
 
 | Protocol | Endpoint | Details |
 |----------|----------|---------|
-| REST API | `https://mailbox.bot/api/v1` | Outbound mail, inbound context, and managed receiving beta |
-| MCP | `https://mailbox.bot/api/mcp` | 29 tools for outbound mail, inbound context, and managed receiving actions |
+| REST API | `https://mailbox.bot/api/v1` | Outbound mail, inbound forwarding context, and future managed receiving |
+| MCP | `https://mailbox.bot/api/mcp` | 29 tools for outbound mail, inbound context, and future managed receiving actions |
 | A2A | `https://mailbox.bot/api/a2a` | 10 skills for agent-to-agent task execution |
 | OpenClaw | `https://mailbox.bot/.well-known/agent.json` | Multi-protocol agent card |
 
@@ -105,10 +105,10 @@ Managed receiving / CMRA-style agent mailboxes are opening in controlled private
 
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
-| **Outbound Only** | $0/mo | **Live now** | Send letters via API. $0.30/page printing + actual carrier postage. |
-| **Virtual Mailbox** | $5/mo | **Private beta** | Real CMRA address (SoCal first), inbound + outbound mail, scan on arrival. |
+| **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
+| **Managed receiving address** | TBD | **Coming soon** | Real CMRA-style receiving address for approved beta users. Separate from forwarded inbound context. |
 
-Outbound postage: USPS First Class from $0.78, Priority $11.95, Certified $6.08. Color printing +$0.25/page.
+Outbound pricing: First Class starts at $1.00 for a 1-page letter, then +$0.40 per extra page. USPS 1-page pricing: Priority Flat Rate Envelope $14.85, Certified Mail $8.98, Certified + Return Receipt $13.38. Color printing +$0.25/page. FedEx and UPS envelope rates are zone-based and shown at checkout.
 
 Full pricing: [mailbox.bot/pricing](https://mailbox.bot/pricing)
 
@@ -146,7 +146,7 @@ clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
   --version 5.1.0 \
-  --changelog "v5.1 — 29 MCP tools for two live workflows: outbound mail and inbound document context. Managed receiving addresses remain in private beta."
+  --changelog "v5.1 — 29 MCP tools for two live workflows: outbound mail and inbound document context. Managed receiving addresses remain a separate coming-soon beta."
 clawhub info mailbox-bot
 ```
 
