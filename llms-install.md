@@ -81,14 +81,14 @@ Add to Cline MCP settings:
 
 ## What You Get
 
-22 MCP tools for physical mail:
+29 MCP tools for outbound mail and inbound document context:
 
 - **send_outbound_mail** — print and mail a PDF, DOCX, image, TXT, or CSV
 - **check_mailbox** — list received mail
 - **request_action** — scan, forward, shred, hold, dispose, return
 - **get_scan_results** — retrieve OCR text from scanned documents
 - **get_mailbox_md** — fetch standing instructions
-- And 17 more (tags, notes, rules, expected shipments, usage, webhooks, batch mail)
+- And 24 more (inbound aliases, OCR-backed context, postal threads, tags, notes, rules, expected shipments, usage, webhooks, and sandbox mail lifecycle tools)
 
 Full tool catalog: https://mailbox.bot/api/mcp/tools-public
 

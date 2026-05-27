@@ -12,7 +12,7 @@
     "type": "bearer",
     "instructions": "Get an API key at https://mailbox.bot/#signup. Use sk_agent_test_ keys for sandbox testing (no charges)."
   },
-  "tools": 22,
+  "tools": 29,
   "categories": ["communication", "automation", "legal", "business"],
   "tags": ["postal-mail", "certified-mail", "print-and-mail", "physical-mail", "letters", "postcards", "batch-mail", "webhooks", "ai-agents", "legal-notices"],
   "homepage": "https://mailbox.bot",

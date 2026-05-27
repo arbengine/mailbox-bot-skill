@@ -11,7 +11,7 @@ auth:
   type: bearer
   instructions: "Get an API key at https://mailbox.bot/#signup. Use sk_agent_test_ keys for sandbox (no charges)."
 
-tools: 22
+tools: 29
 
 categories:
   - communication

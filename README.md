@@ -2,7 +2,7 @@
 
 [![Website](https://img.shields.io/badge/Website-mailbox.bot-1D4ED8?style=flat)](https://mailbox.bot)
 [![API Docs](https://img.shields.io/badge/API_Docs-api--docs-1D4ED8?style=flat)](https://mailbox.bot/api-docs)
-[![MCP](https://img.shields.io/badge/MCP-22_tools-1D4ED8?style=flat)](https://mailbox.bot/mcp-install)
+[![MCP](https://img.shields.io/badge/MCP-29_tools-1D4ED8?style=flat)](https://mailbox.bot/mcp-install)
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-3.1-1D4ED8?style=flat)](https://mailbox.bot/api/openapi.json)
 [![Sandbox](https://img.shields.io/badge/Sandbox-test_keys-1D4ED8?style=flat)](https://mailbox.bot/api-docs#sandbox)
 [![License](https://img.shields.io/badge/License-Proprietary-gray?style=flat)]()
@@ -129,7 +129,7 @@ clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
   --version 5.0.0 \
-  --changelog "v5.0 — Outbound print-and-mail live. Certified mail, batch mail, sandbox test keys, 22 MCP tools. Inbound agent mailboxes in private beta."
+  --changelog "v5.0 — Outbound print-and-mail live. Certified mail, batch mail, sandbox test keys, 29 MCP tools. Inbound document context and agent mailboxes in private beta."
 clawhub info mailbox-bot
 ```
 
