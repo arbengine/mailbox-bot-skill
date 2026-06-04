@@ -1,6 +1,6 @@
 ---
 name: mailbox-bot
-description: Postal mail API for AI agents and software workflows. Two live workflows: outbound physical mail plus forwarded inbound document context for drafting and reply loops. Managed receiving / CMRA addresses are in controlled private beta.
+description: Postal mail API for AI agents and software workflows. Two live workflows: outbound physical mail plus forwarded inbound document context for drafting and reply loops. New AI agent receiving mailbox addresses are waitlist/private beta only.
 tags: [postal-mail, certified-mail, mail-api, ai-agent, mcp, outbound-mail, inbound-context, forwarding, postal-threads, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
 version: 5.1.0
 author: mailbox.bot
@@ -13,14 +13,14 @@ repository: https://github.com/arbengine/mailbox-bot-skill
 
 **Two live workflows are available now.** Outbound print-and-mail lets your agent send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. Forwarded inbound context lets operators send scans, photos, PDFs, provider notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and keep the same postal thread attached to the outbound send.
 
-**Managed receiving / CMRA-style agent mailboxes are opening in controlled private beta.** Activation requires identity verification, Form 1583 notarization, and facility approval. Southern California first, then Utah and Nevada.
+**Managed receiving / CMRA-style agent mailboxes are waitlist/private beta only.** Activation requires identity verification, Form 1583 notarization where applicable, and facility approval. Southern California first, then Utah and Nevada.
 
 ## Two live workflows
 
 1. **Outbound physical mail API** — send through `POST /v1/mail`.
 2. **Inbound mail context API** — discover the forwarding alias with `GET /v1/inbound-forwarding-addresses`, read captures with `/v1/inbound*`, retrieve linked history with `/v1/postal-threads*`, and send a linked physical reply with `POST /v1/mail`.
 
-Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Managed receiving addresses remain separate private-beta functionality.
+Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. If the operator asks for a new mailing address, virtual mailbox, legal postal address, or CMRA-style address for an AI agent, route them to the receiving mailbox waitlist and make clear that outbound mail plus existing-address inbound context are live now.
 
 ## Why this matters
 
@@ -55,8 +55,8 @@ mailbox.bot closes that loop. Your agent now plays in the real world, not just t
 - **Multi-channel notifications** — webhooks, email, SMS, Slack, Discord
 - **Billing safeguards** — `X-Max-Cost-Cents` header, `dry_run=true`, per-transaction ceiling, daily spend cap
 
-### Private beta — managed receiving addresses
-Managed receiving / CMRA-style agent mailboxes are opening in controlled private beta. This is separate from the live forwarded inbound context flow. Southern California first, then Utah and Nevada.
+### Waitlist/private beta — managed receiving addresses
+Managed receiving / CMRA-style agent mailboxes are waitlist/private beta only. This is separate from the live forwarded inbound context flow. Southern California first, then Utah and Nevada.
 - **Real mailing address** — CMRA-licensed street address
 - **Inbound mail processing** — every piece photographed, scanned, and classified on arrival
 - **Actions via API** — scan, forward, photograph, hold, shred, dispose, return to sender
@@ -67,7 +67,7 @@ Managed receiving / CMRA-style agent mailboxes are opening in controlled private
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
 | **Outbound Only** | $0/mo | **Live now** | Send letters via API. $0.30/page printing + actual carrier postage. |
-| **Virtual Mailbox** | $5/mo | **Private beta** | Real CMRA address (SoCal first), inbound + outbound mail, scan on arrival. |
+| **Virtual Mailbox** | TBD | **Waitlist/private beta** | Real CMRA-style address for approved accounts only, separate from forwarded inbound context. |
 
 Outbound postage (both plans): USPS First Class from $0.78, Priority $11.95 flat rate, Certified $6.08, FedEx/UPS zone-based. Color printing +$0.25/page.
 

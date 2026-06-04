@@ -11,7 +11,7 @@
 
 This repository is the public discovery and integration package for mailbox.bot. The production service runs at [mailbox.bot](https://mailbox.bot).
 
-**Two live workflows today: outbound physical mail via API, and inbound forwarded document context for reply loops. Managed receiving / CMRA-style addresses are coming soon as a separate restricted beta.**
+**Two live workflows today: outbound physical mail via API, and inbound forwarded document context for reply loops. If an operator wants a new receiving mailbox address for an AI agent, use the waitlist; do not describe new receiving addresses as generally available.**
 
 mailbox.bot is the postal mail API for AI agents and software workflows. Send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. For inbound, operators can forward scans, photos, PDFs, virtual mailbox notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and send outbound mail on the same postal thread.
 
@@ -24,7 +24,7 @@ forward scans/docs -> OCR-backed context + draft reply -> POST /v1/mail
 1. **Outbound physical mail API** — submit a document and recipient address with `POST /v1/mail`.
 2. **Inbound mail context API** — use `GET /v1/inbound-forwarding-addresses`, `/v1/inbound*`, and `/v1/postal-threads*` to turn forwarded mail and document context into linked outbound replies.
 
-Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Managed receiving addresses remain a separate coming-soon beta surface.
+Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Managed receiving addresses remain a separate waitlist/private-beta surface.
 
 ## Install
 
@@ -83,9 +83,9 @@ curl -X POST https://mailbox.bot/api/v1/mail \
 - **Human-in-the-loop** — `requires_approval=true` pauses for human approval
 - **Billing safeguards** — `X-Max-Cost-Cents` header, `dry_run=true`, daily spend caps
 
-## Coming soon — managed receiving addresses
+## Waitlist — managed receiving addresses
 
-Managed receiving / CMRA-style agent mailboxes are coming soon as a restricted beta. This is separate from the live forwarded inbound context flow. Activation will require identity verification, Form 1583 notarization where applicable, and facility approval.
+Managed receiving / CMRA-style agent mailboxes are waitlist-only unless the account is explicitly approved. This is separate from the live forwarded inbound context flow. Activation will require identity verification, Form 1583 notarization where applicable, and facility approval.
 
 - Real CMRA-licensed street address
 - Every piece photographed, scanned, and classified on arrival
@@ -106,7 +106,7 @@ Managed receiving / CMRA-style agent mailboxes are coming soon as a restricted b
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
 | **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
-| **Managed receiving address** | TBD | **Coming soon** | Real CMRA-style receiving address for approved beta users. Separate from forwarded inbound context. |
+| **Managed receiving address** | TBD | **Waitlist/private beta** | Real CMRA-style receiving address for approved users only. Separate from forwarded inbound context. |
 
 Outbound pricing: First Class starts at $1.00 for a 1-page letter, then +$0.40 per extra page. USPS 1-page pricing: Priority Flat Rate Envelope $14.85, Certified Mail $8.98, Certified + Return Receipt $13.38. Color printing +$0.25/page. FedEx and UPS envelope rates are zone-based and shown at checkout.
 
@@ -146,7 +146,7 @@ clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
   --version 5.1.0 \
-  --changelog "v5.1 — 29 MCP tools for two live workflows: outbound mail and inbound document context. Managed receiving addresses remain a separate coming-soon beta."
+  --changelog "v5.1 — 29 MCP tools for two live workflows: outbound mail and inbound document context. Managed receiving addresses remain a separate waitlist/private-beta surface."
 clawhub info mailbox-bot
 ```
 
