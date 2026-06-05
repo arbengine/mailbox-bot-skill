@@ -2,7 +2,7 @@
 name: mailbox-bot
 description: Postal mail API for AI agents and software workflows. Two live workflows: outbound physical mail plus forwarded inbound document context for drafting and reply loops. New AI agent receiving mailbox addresses are waitlist/private beta only.
 tags: [postal-mail, certified-mail, mail-api, ai-agent, mcp, outbound-mail, inbound-context, forwarding, postal-threads, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
-version: 5.1.0
+version: 5.1.1
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 ---
@@ -66,14 +66,12 @@ Managed receiving / CMRA-style agent mailboxes are waitlist/private beta only. T
 
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
-| **Outbound Only** | $0/mo | **Live now** | Send letters via API. $0.30/page printing + actual carrier postage. |
-| **Virtual Mailbox** | TBD | **Waitlist/private beta** | Real CMRA-style address for approved accounts only, separate from forwarded inbound context. |
+| **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
+| **Managed receiving address** | Planned $10/mo | **Waitlist/private beta** | Real CMRA-style receiving address for approved users only, separate from forwarded inbound context. |
 
-Outbound postage (both plans): USPS First Class from $0.78, Priority $11.95 flat rate, Certified $6.08, FedEx/UPS zone-based. Color printing +$0.25/page.
+Outbound pricing: First Class starts at $1.00 for a 1-page letter, then +$0.40 per extra page. USPS 1-page examples: Priority Flat Rate Envelope $14.85, Certified Mail $8.98, Certified + Return Receipt $13.38. Color printing +$0.25/page. FedEx and UPS envelope rates are zone-based and shown at checkout.
 
-Actions billed per use: scan $3, open & scan $5, photograph $1.50, forward $5 + $2/lb, shred $2, dispose $1, return $5, hold free.
-
-All plans month-to-month, cancel anytime. Full pricing: https://mailbox.bot/pricing
+Managed receiving action pricing is available only to approved beta accounts. Full current pricing: https://mailbox.bot/pricing
 
 ## How to get started
 
@@ -88,9 +86,14 @@ export MAILBOX_BOT_URL="https://mailbox.bot"
 
 Skip to the **API Reference** section below.
 
-### If you do NOT have an API key — sign up your operator
+### If you do NOT have an API key — get operator approval first
 
-Create an account on behalf of your human operator. No CAPTCHA, no auth header.
+Do not create accounts, share the operator's email, or start onboarding unless the human operator explicitly consents. Preferred paths:
+
+1. Send the operator to https://mailbox.bot/signup.
+2. Or follow the guarded agent registration flow in https://mailbox.bot/auth.md.
+
+If the operator explicitly asks you to start direct signup, you may call the legacy signup endpoint. No CAPTCHA, no auth header.
 
 **POST to `https://mailbox.bot/api/v1/signup`:**
 
@@ -123,15 +126,15 @@ Rate limit: 5 requests per minute per IP.
   "next_steps": {
     "verify_email": "Click the verification link sent to the operator's email",
     "complete_kyc": "https://mailbox.bot/signup",
-    "after_kyc": "Select a plan, add payment, and create your first agent to get API keys"
+    "after_kyc": "Start with inbound context + outbound mail; create or approve an agent key; join the managed receiving waitlist separately if needed"
   },
   "human_action_required": [
     { "step": "verify_email",  "summary": "Click the verification link sent to operator@example.com", "blocker": true },
     { "step": "verify_phone",  "summary": "Enter a real US mobile number — Google Voice, TextNow, and other VoIP/burner numbers are rejected", "blocker": true },
     { "step": "add_payment",   "summary": "Add a credit or debit card (no prepaid or gift cards)", "blocker": true },
-    { "step": "select_plan",   "summary": "Pick Outbound-Only ($0/mo) or Virtual Mailbox ($5/mo; requires Form 1583 notarization)", "blocker": true }
+    { "step": "select_service", "summary": "Start with inbound context + outbound mail ($0/mo); managed receiving address is waitlist/private beta and planned at $10/mo when available", "blocker": true }
   ],
-  "relay_message": "I created your mailbox.bot account. To finish setup so I can send mail on your behalf: (1) click the verification link in the email I just had sent to operator@example.com, (2) enter a real US mobile number (no Google Voice or burner numbers), (3) add a payment card, (4) pick a plan. Takes about 5 minutes at https://mailbox.bot/signup."
+  "relay_message": "I started your mailbox.bot account after your approval. To finish setup so I can send mail on your behalf: (1) click the verification link sent to operator@example.com, (2) enter a real US mobile number (no Google Voice or burner numbers), (3) add a payment card, and (4) start with inbound context + outbound mail. If you need a new managed receiving address, join the waitlist separately. Takes about 5 minutes at https://mailbox.bot/signup."
 }
 ```
 
@@ -149,16 +152,16 @@ Rate limit: 5 requests per minute per IP.
 
 **After signup — tell your operator:**
 
-> "I created your mailbox.bot account. Check your email at **operator@example.com** for a verification link. Click it, then go to https://mailbox.bot/signup to finish setup (~5 minutes). Once you're done, I'll have API access to manage your mail."
+> "I started your mailbox.bot account after your approval. Check your email at **operator@example.com** for a verification link. Click it, then go to https://mailbox.bot/signup to finish setup (~5 minutes). Once you're done, create or approve an agent key so I can help with postal workflows."
 
 The human must complete these steps in a browser:
 1. Click the email verification link
 2. Verify phone number (carrier check — no VoIP/burner phones)
 3. Add a payment card (no prepaid/gift cards)
-4. Complete Form 1583 notarization (virtual mailbox only — ~5 min video call, $25)
-5. Accept Terms of Service and select a plan
+4. Accept Terms of Service and start with inbound context + outbound mail
+5. If approved for managed receiving, complete any required Form 1583 notarization and facility review
 
-After the human finishes, an agent and mailbox are auto-provisioned. API keys appear on the dashboard at https://mailbox.bot/dashboard.
+After the human finishes, the account can use outbound mail and existing-address inbound context. Agent keys appear on the dashboard at https://mailbox.bot/dashboard. Managed receiving addresses appear separately for approved waitlist/private-beta accounts.
 
 ## Protocols
 
@@ -462,9 +465,10 @@ Trigger when user says:
 
 **Action flow:**
 1. Check for API key (`MAILBOX_BOT_API_KEY`). If present, use the API directly.
-2. If no API key, **create an account for the operator** by POSTing to `https://mailbox.bot/api/v1/signup`.
-3. Tell the operator to check their email, click the verification link, and complete onboarding at https://mailbox.bot/signup (~5 minutes).
-4. Once onboarding is done, set the API key and start managing mail.
+2. If no API key, ask the operator to approve signup/auth first. Prefer https://mailbox.bot/auth.md or direct the human to https://mailbox.bot/signup.
+3. Only call `https://mailbox.bot/api/v1/signup` after explicit operator consent.
+4. Tell the operator to check their email, click the verification link, and complete onboarding at https://mailbox.bot/signup (~5 minutes).
+5. Once onboarding is done, set the approved agent API key and start with outbound mail plus existing-address inbound context.
 
 ---
 

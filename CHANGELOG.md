@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.1] - 2026-06-05
+
+### Changed
+- Fixed stale ClawHub-facing pricing and onboarding language in `SKILL.md`
+- Clarified that direct signup requires explicit operator consent and that `auth.md` is the preferred guarded registration path
+- Updated OpenClaw install and ClawHub publish instructions for the v5.1.1 package
+
 ## [5.1.0] - 2026-05-27
 
 ### Changed

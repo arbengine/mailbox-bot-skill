@@ -49,6 +49,8 @@ Full MCP install guide: [mailbox.bot/mcp-install](https://mailbox.bot/mcp-instal
 
 ```bash
 clawhub install mailbox-bot
+# or in OpenClaw:
+openclaw skills install arbengine/mailbox-bot
 ```
 
 ### REST API
@@ -106,7 +108,7 @@ Managed receiving / CMRA-style agent mailboxes are waitlist-only unless the acco
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
 | **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
-| **Managed receiving address** | TBD | **Waitlist/private beta** | Real CMRA-style receiving address for approved users only. Separate from forwarded inbound context. |
+| **Managed receiving address** | Planned $10/mo | **Waitlist/private beta** | Real CMRA-style receiving address for approved users only. Separate from forwarded inbound context. |
 
 Outbound pricing: First Class starts at $1.00 for a 1-page letter, then +$0.40 per extra page. USPS 1-page pricing: Priority Flat Rate Envelope $14.85, Certified Mail $8.98, Certified + Return Receipt $13.38. Color printing +$0.25/page. FedEx and UPS envelope rates are zone-based and shown at checkout.
 
@@ -145,9 +147,9 @@ clawhub login
 clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
-  --version 5.1.0 \
-  --changelog "v5.1 — 29 MCP tools for two live workflows: outbound mail and inbound document context. Managed receiving addresses remain a separate waitlist/private-beta surface."
-clawhub info mailbox-bot
+  --version 5.1.1 \
+  --changelog "v5.1.1 — fixes stale pricing and onboarding language; managed receiving remains waitlist/private beta while outbound mail and existing-address inbound context are live."
+clawhub inspect mailbox-bot
 ```
 
 ---
