@@ -1,5 +1,10 @@
 # Changelog
 
+## [5.1.4] - 2026-06-05
+
+### Changed
+- Quoted and shortened the ClawHub frontmatter description so the registry can derive the public summary from the current package copy
+
 ## [5.1.3] - 2026-06-05
 
 ### Changed

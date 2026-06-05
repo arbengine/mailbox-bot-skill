@@ -1,7 +1,7 @@
 name: mailbox-bot
 displayName: mailbox.bot
 description: Postal mail API for AI agents. 29 MCP tools for outbound physical mail, existing-address inbound context, linked postal threads, and future mailing mailbox address workflows.
-version: 5.1.3
+version: 5.1.4
 type: remote
 url: https://mailbox.bot/api/mcp
 transport: streamable-http

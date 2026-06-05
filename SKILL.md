@@ -1,8 +1,8 @@
 ---
 name: mailbox-bot
-description: Postal mail API for AI agents and software workflows. Live now: outbound physical mail plus forwarded inbound document context. Waitlist/private beta: a real mailing mailbox address with street address and box number for your agent.
+description: "Postal mail API for AI agents: send physical mail, use forwarded inbound document context, and join the real mailbox address waitlist (street + box number)."
 tags: [postal-mail, certified-mail, mail-api, ai-agent, mcp, outbound-mail, inbound-context, forwarding, postal-threads, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
-version: 5.1.3
+version: 5.1.4
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 ---

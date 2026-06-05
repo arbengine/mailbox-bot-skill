@@ -147,8 +147,8 @@ clawhub login
 clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
-  --version 5.1.3 \
-  --changelog "v5.1.3 — simplifies waitlist language and aligns copy with live outbound mail, existing-address inbound context, current pricing, and the real mailing mailbox address waitlist."
+  --version 5.1.4 \
+  --changelog "v5.1.4 — quotes the ClawHub frontmatter description so the registry summary reflects live outbound mail, inbound context, pricing, and the real mailbox address waitlist."
 clawhub inspect mailbox-bot
 ```
 
