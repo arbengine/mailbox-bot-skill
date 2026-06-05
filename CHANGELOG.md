@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.1.5] - 2026-06-05
+
+### Changed
+- Made the launching-soon real mailing address beta more explicit across skill metadata: street address + mailbox number, scan/photo intake, OCR/classification, agent notifications, and linked reply workflows
+- Replaced generic managed-address phrasing in discovery copy with user-facing waitlist language
+
 ## [5.1.4] - 2026-06-05
 
 ### Changed
@@ -9,7 +15,7 @@
 
 ### Changed
 - Removed technical mailbox-provider jargon from public skill copy
-- Reframed waitlist language around a real mailing mailbox address with street address + box number
+- Reframed waitlist language around a real mailing mailbox address with street address + mailbox number
 - Reconfirmed live capabilities and pricing language for ClawHub/OpenClaw readers
 
 ## [5.1.2] - 2026-06-05
