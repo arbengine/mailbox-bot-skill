@@ -1,5 +1,10 @@
 # Changelog
 
+## [5.1.2] - 2026-06-05
+
+### Changed
+- Refreshed ClawHub summary metadata so the registry hero matches the current skill positioning
+
 ## [5.1.1] - 2026-06-05
 
 ### Changed

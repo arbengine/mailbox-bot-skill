@@ -147,8 +147,8 @@ clawhub login
 clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
-  --version 5.1.1 \
-  --changelog "v5.1.1 — fixes stale pricing and onboarding language; managed receiving remains waitlist/private beta while outbound mail and existing-address inbound context are live."
+  --version 5.1.2 \
+  --changelog "v5.1.2 — refreshes ClawHub summary metadata; installed skill remains focused on outbound mail and existing-address inbound context, with managed receiving waitlist/private beta."
 clawhub inspect mailbox-bot
 ```
 
