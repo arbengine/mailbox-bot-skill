@@ -1,9 +1,16 @@
 # Changelog
 
+## [5.1.3] - 2026-06-05
+
+### Changed
+- Removed technical mailbox-provider jargon from public skill copy
+- Reframed waitlist language around a real mailing mailbox address with street address + box number
+- Reconfirmed live capabilities and pricing language for ClawHub/OpenClaw readers
+
 ## [5.1.2] - 2026-06-05
 
 ### Changed
-- Refreshed ClawHub summary metadata so the registry hero matches the current skill positioning
+- Refreshed ClawHub package version metadata
 
 ## [5.1.1] - 2026-06-05
 
@@ -16,7 +23,7 @@
 
 ### Changed
 - Reframed the skill around two live workflows: outbound physical mail and forwarded inbound document context
-- Updated README and SKILL.md to distinguish live inbound context from managed receiving / CMRA private beta
+- Updated README and SKILL.md to distinguish live inbound context from the mailing mailbox address private beta
 - Fixed MCP install docs to use current tool names such as `list_inbound_forwarding_addresses`, `list_inbound_mail`, and `get_inbound_mail`
 - Updated outbound examples to `X-Mailbox-MD-Version: 3` and canonical OpenAPI links to `https://mailbox.bot/openapi.json`
 - Refreshed marketplace metadata descriptions and tags to mention inbound context and postal threads
