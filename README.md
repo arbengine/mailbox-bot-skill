@@ -11,7 +11,9 @@
 
 This repository is the public discovery and integration package for mailbox.bot. The production service runs at [mailbox.bot](https://mailbox.bot).
 
-**Two live workflows today: outbound physical mail via API, and inbound forwarded document context for reply loops. If an operator wants a new real mailing mailbox address with street address + mailbox number for an AI agent, use the launching-soon waitlist/private beta; do not describe new receiving addresses as generally available.**
+**MCP server lets AI agents send physical mail.**
+
+**Two live workflows today: outbound physical mail via API, and inbound forwarded document context for reply loops. If an operator wants a new real mailing mailbox address with street address + mailbox number for an AI agent, use the managed receiving-address waitlist; do not describe new receiving addresses as generally available before August 31, 2026 or before account approval.**
 
 mailbox.bot is the postal mail API for AI agents and software workflows. Send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. For inbound, operators can forward scans, photos, PDFs, virtual mailbox notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and send outbound mail on the same postal thread.
 
@@ -24,7 +26,7 @@ forward scans/docs -> OCR-backed context + draft reply -> POST /v1/mail
 1. **Outbound physical mail API** — submit a document and recipient address with `POST /v1/mail`.
 2. **Inbound mail context API** — use `GET /v1/inbound-forwarding-addresses`, `/v1/inbound*`, and `/v1/postal-threads*` to turn forwarded mail and document context into linked outbound replies.
 
-Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Real mailing mailbox addresses remain a separate launching-soon waitlist/private-beta surface with scan/photo intake and agent notifications.
+Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Real mailing mailbox addresses remain a separate managed receiving-address surface with scan/photo intake and agent notifications, issuing beginning August 31, 2026 for approved accounts.
 
 ## Install
 
@@ -87,7 +89,7 @@ curl -X POST https://mailbox.bot/api/v1/mail \
 
 ## Waitlist — real mailing mailbox address
 
-A real mailing mailbox address for your agent is a launching-soon waitlist/private beta unless the account is explicitly approved. This is separate from the live forwarded inbound context flow. Activation will require identity verification, any required postal authorization, and facility approval.
+A real mailing mailbox address for your agent begins issuing August 31, 2026 for approved accounts unless the account is explicitly approved earlier for beta access. This is separate from the live forwarded inbound context flow. Activation requires identity verification, USPS Form 1583 where required, any other required postal authorization, and facility approval.
 
 - Street address + mailbox number for approved accounts
 - Arrival photos, requested/instructed scans, OCR, and classification
@@ -109,7 +111,7 @@ A real mailing mailbox address for your agent is a launching-soon waitlist/priva
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
 | **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
-| **Real mailing mailbox address** | Planned $10/mo | **Launching-soon waitlist/private beta** | Street address + mailbox number for approved users only, with scan/photo intake and agent notifications. Separate from forwarded inbound context. |
+| **Real mailing mailbox address** | Planned $10/mo | **Issuing begins August 31, 2026 for approved accounts** | Street address + mailbox number for approved users only, with scan/photo intake and agent notifications. Separate from forwarded inbound context. |
 
 Outbound pricing: First Class starts at $1.00 for a 1-page letter, then +$0.40 per extra page. USPS 1-page pricing: Priority Flat Rate Envelope $14.85, Certified Mail $8.98, Certified + Return Receipt $13.38. Color printing +$0.25/page. FedEx and UPS envelope rates are zone-based and shown at checkout.
 

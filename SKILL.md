@@ -1,6 +1,6 @@
 ---
 name: mailbox-bot
-description: "Postal mail API for AI agents: send physical mail, use inbound context, and join the launching-soon mailbox address beta (street + mailbox number)."
+description: "MCP server lets AI agents send physical mail. Postal mail API for AI agents: send physical mail, use inbound context, and reserve managed receiving addresses issuing beginning August 31, 2026 for approved accounts."
 tags: [postal-mail, certified-mail, mail-api, ai-agent, mcp, outbound-mail, inbound-context, forwarding, postal-threads, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
 version: 5.1.5
 author: mailbox.bot
@@ -13,14 +13,14 @@ repository: https://github.com/arbengine/mailbox-bot-skill
 
 **Two live workflows are available now.** Outbound print-and-mail lets your agent send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. Forwarded inbound context lets operators send scans, photos, PDFs, provider notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and keep the same postal thread attached to the outbound send.
 
-**A real mailing mailbox address for your agent is a launching-soon waitlist/private beta.** This is the future receiving-side product: a street address plus mailbox number that an approved agent or operator can use for business correspondence, legal mail, and eligible packages. On arrival, mailbox.bot can photograph the outside, scan contents when requested or instructed, OCR and classify the piece, and ping the agent through MCP/API/webhooks so it can make context-aware decisions and send linked replies at scale. Activation requires identity verification, any required postal authorization, and facility approval. Southern California first, then Utah and Nevada.
+**Managed receiving addresses begin issuing August 31, 2026 for approved accounts.** This is the future receiving-side product: a street address plus mailbox number that an approved agent or operator can use for business correspondence, legal mail, and eligible packages. On arrival, mailbox.bot can photograph the outside, scan contents when requested or instructed, OCR and classify the piece, and ping the agent through MCP/API/webhooks so it can make context-aware decisions and send linked replies at scale. Activation requires identity verification, USPS Form 1583 where required, any other required postal authorization, and facility approval.
 
 ## Two live workflows
 
 1. **Outbound physical mail API** — send through `POST /v1/mail`.
 2. **Inbound mail context API** — discover the forwarding alias with `GET /v1/inbound-forwarding-addresses`, read captures with `/v1/inbound*`, retrieve linked history with `/v1/postal-threads*`, and send a linked physical reply with `POST /v1/mail`.
 
-Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. If the operator asks for a new mailing address, virtual mailbox, street address, mailbox number, legal mailing address, or mailbox address for an AI agent, route them to the launching-soon mailing mailbox address waitlist and make clear that outbound mail plus existing-address inbound context are live now.
+Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. If the operator asks for a new mailing address, virtual mailbox, street address, mailbox number, legal mailing address, or mailbox address for an AI agent, route them to the managed receiving-address waitlist and make clear that outbound mail plus existing-address inbound context are live now while new managed receiving addresses begin issuing August 31, 2026 for approved accounts.
 
 ## Why this matters
 
@@ -55,8 +55,8 @@ mailbox.bot closes that loop. Your agent now plays in the real world, not just t
 - **Multi-channel notifications** — webhooks, email, SMS, Slack, Discord
 - **Billing safeguards** — `X-Max-Cost-Cents` header, `dry_run=true`, per-transaction ceiling, daily spend cap
 
-### Launching-soon waitlist/private beta — real mailing mailbox address
-A real mailing mailbox address for your agent is waitlist/private beta only. This is separate from the live forwarded inbound context flow. Southern California first, then Utah and Nevada.
+### Coming August 31, 2026 — real mailing mailbox address
+A real mailing mailbox address for your agent begins issuing August 31, 2026 for approved accounts. This is separate from the live forwarded inbound context flow.
 - **Street address + mailbox number** — a real mailing mailbox address for approved accounts
 - **Scan/photo intake** — photograph arrivals, scan contents when requested or instructed, OCR, classify, and attach context
 - **Agent pings** — notify the agent through MCP/API/webhooks so workflows can triage, decide, and send linked replies at scale
@@ -68,7 +68,7 @@ A real mailing mailbox address for your agent is waitlist/private beta only. Thi
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
 | **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
-| **Real mailing mailbox address** | Planned $10/mo | **Launching-soon waitlist/private beta** | Street address + mailbox number for approved users only, with scan/photo intake and agent notifications; separate from forwarded inbound context. |
+| **Real mailing mailbox address** | Planned $10/mo | **Issuing begins August 31, 2026 for approved accounts** | Street address + mailbox number for approved users only, with scan/photo intake and agent notifications; separate from forwarded inbound context. |
 
 Outbound pricing: First Class starts at $1.00 for a 1-page letter, then +$0.40 per extra page. USPS 1-page examples: Priority Flat Rate Envelope $14.85, Certified Mail $8.98, Certified + Return Receipt $13.38. Color printing +$0.25/page. FedEx and UPS envelope rates are zone-based and shown at checkout.
 
