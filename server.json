@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/anthropics/mcp/main/schema/server.schema.json",
   "name": "mailbox-bot",
   "displayName": "mailbox.bot",
-  "description": "MCP server lets AI agents send physical mail. Postal mail API for AI agents with 29 MCP tools for outbound physical mail, existing-address inbound context, linked postal threads, and managed receiving-address workflows issuing beginning August 31, 2026 for approved accounts.",
+  "description": "MCP server lets AI agents send physical mail. Postal mail API for AI agents with 29 MCP tools for outbound physical mail, existing-address inbound context, linked postal threads, and mailbox.bot-issued managed receiving-address reservations for approved issuance beginning August 31, 2026.",
   "version": "5.1.5",
   "type": "remote",
   "url": "https://mailbox.bot/api/mcp",

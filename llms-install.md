@@ -4,7 +4,7 @@
 
 ## MCP Server (Remote — no local install needed)
 
-mailbox.bot is a remote MCP server. For clients that support remote HTTP MCP servers, no npm install, Docker, or local process is required. Add this config and you're connected to 29 tools for two live workflows: outbound physical mail plus inbound forwarded document context. Real mailing mailbox addresses with street address + mailbox number, scan/photo intake, and agent notifications remain a separate launching-soon waitlist/private-beta surface.
+mailbox.bot is a remote MCP server. For clients that support remote HTTP MCP servers, no npm install, Docker, or local process is required. Add this config and you're connected to 29 tools for two live workflows: outbound physical mail plus inbound forwarded document context. Real mailbox.bot-issued mailing addresses with street address + mailbox number, scan/photo intake, and agent notifications remain a separate reservation/private-beta surface.
 
 ### Generic remote HTTP config
 
@@ -89,7 +89,7 @@ Add to Cline MCP settings:
 - **get_inbound_mail** — fetch extracted context and `draft_context`
 - **list_postal_threads** — list linked inbound/outbound physical-mail threads
 - **get_mailbox_md** — fetch standing instructions
-- And 23 more (launching-soon mailing mailbox address beta tools, packages, scan/photo intake, tags, notes, rules, usage, facility messaging, webhooks, and sandbox mail lifecycle tools)
+- And 23 more (managed mailing mailbox address beta tools, packages, scan/photo intake, tags, notes, rules, usage, facility messaging, webhooks, and sandbox mail lifecycle tools)
 
 Full tool catalog: https://mailbox.bot/api/mcp/tools-public
 
