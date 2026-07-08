@@ -2,7 +2,7 @@
 
 [![Website](https://img.shields.io/badge/Website-mailbox.bot-1D4ED8?style=flat)](https://mailbox.bot)
 [![API Docs](https://img.shields.io/badge/API_Docs-api--docs-1D4ED8?style=flat)](https://mailbox.bot/api-docs)
-[![MCP](https://img.shields.io/badge/MCP-29_tools-1D4ED8?style=flat)](https://mailbox.bot/mcp-install)
+[![MCP](https://img.shields.io/badge/MCP-30_tools-1D4ED8?style=flat)](https://mailbox.bot/mcp-install)
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-3.1-1D4ED8?style=flat)](https://mailbox.bot/openapi.json)
 [![Sandbox](https://img.shields.io/badge/Sandbox-test_keys-1D4ED8?style=flat)](https://mailbox.bot/api-docs#sandbox)
 [![License](https://img.shields.io/badge/License-Proprietary-gray?style=flat)]()
@@ -13,7 +13,7 @@ This repository is the public discovery and integration package for mailbox.bot.
 
 **MCP server lets AI agents send physical mail.**
 
-**Two live workflows today: outbound physical mail via API, and inbound forwarded document context for reply loops. If an operator wants a new mailbox.bot-issued mailing mailbox address with street address + mailbox number for an AI agent, use the managed receiving-address reservation path; do not describe new receiving addresses as generally available before August 2026 or before account approval.**
+**Two live workflows today: outbound physical mail via API, and inbound forwarded document context for reply loops. If an operator wants a new mailbox.bot-issued mailing mailbox address with street address + mailbox number for an AI agent, use the managed receiving-address reservation path; do not describe new receiving addresses as generally available before August 31, 2026 or before account approval.**
 
 mailbox.bot is the postal mail API for AI agents and software workflows. Send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. For inbound, operators can forward scans, photos, PDFs, virtual mailbox notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and send outbound mail on the same postal thread.
 
@@ -26,7 +26,7 @@ forward scans/docs -> OCR-backed context + draft reply -> POST /v1/mail
 1. **Outbound physical mail API** — submit a document and recipient address with `POST /v1/mail`.
 2. **Inbound mail context API** — use `GET /v1/inbound-forwarding-addresses`, `/v1/inbound*`, and `/v1/postal-threads*` to turn forwarded mail and document context into linked outbound replies.
 
-Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Real mailbox.bot-issued mailing addresses remain a separate managed receiving-address surface with scan/photo intake and agent notifications, with approved issuance beginning August 2026.
+Default inbound forwarding is a digital intake channel, not a newly assigned physical mailing address. Real mailbox.bot-issued mailing addresses remain a separate managed receiving-address surface with scan/photo intake and agent notifications, with approved issuance beginning August 31, 2026.
 
 ## Install
 
@@ -78,6 +78,7 @@ curl -X POST https://mailbox.bot/api/v1/mail \
 - **Inbound document context** — private forwarding aliases on `forward.mailbox.bot` capture scans, photos, PDFs, provider notices, and human notes from the addresses operators already use
 - **OCR-backed reply loop** — agents read `/v1/inbound*`, retrieve `draft_context`, and send linked replies with `inbound_capture_id` and `postal_mail_thread_id`
 - **Postal threads** — `/v1/postal-threads*` ties inbound context and outbound events together
+- **Document review** — `requires_approval=true` creates dashboard review items with `document_preview_url`; MCP also exposes `get_outbound_mail_document` for scoped source-document retrieval
 - **Certified mail** — USPS Certified, Certified + Return Receipt, Priority, First Class
 - **FedEx and UPS** — zone-based rates for overnight, 2-day, ground
 - **Batch mail** — send up to 10,000 pieces from a CSV, volume discounts at 500/1000/5000 pieces
@@ -89,7 +90,7 @@ curl -X POST https://mailbox.bot/api/v1/mail \
 
 ## Waitlist — real mailing mailbox address
 
-A mailbox.bot-issued real mailing mailbox address for your agent begins issuing August 2026 for approved accounts unless the account is explicitly approved earlier for beta access. This is separate from the live forwarded inbound context flow. Activation requires identity verification, USPS Form 1583 where required, any other required postal authorization, and facility approval.
+A mailbox.bot-issued real mailing mailbox address for your agent begins issuing August 31, 2026 for approved accounts unless the account is explicitly approved earlier for beta access. This is separate from the live forwarded inbound context flow. Activation requires identity verification, USPS Form 1583 where required, any other required postal authorization, and facility approval.
 
 - Street address + mailbox number for approved accounts
 - Arrival photos, requested/instructed scans, OCR, and classification
@@ -102,7 +103,7 @@ A mailbox.bot-issued real mailing mailbox address for your agent begins issuing 
 | Protocol | Endpoint | Details |
 |----------|----------|---------|
 | REST API | `https://mailbox.bot/api/v1` | Outbound mail, inbound forwarding context, and managed mailing address beta actions |
-| MCP | `https://mailbox.bot/api/mcp` | 29 tools for outbound mail, inbound context, and managed mailing address beta actions |
+| MCP | `https://mailbox.bot/api/mcp` | 30 tools for outbound mail, inbound context, document retrieval, facility messaging, webhooks, sandbox lifecycle simulation, and managed mailing address beta actions |
 | A2A | `https://mailbox.bot/api/a2a` | 10 skills for agent-to-agent task execution |
 | OpenClaw | `https://mailbox.bot/.well-known/agent.json` | Multi-protocol agent card |
 
@@ -111,7 +112,7 @@ A mailbox.bot-issued real mailing mailbox address for your agent begins issuing 
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
 | **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
-| **Real mailing mailbox address** | Planned $10/mo | **Reservations open; approved issuance begins August 2026** | Street address + mailbox number for approved users only, with scan/photo intake and agent notifications. Separate from forwarded inbound context. |
+| **Real mailing mailbox address** | Planned $10/mo | **Reservations open; approved issuance begins August 31, 2026** | Street address + mailbox number for approved users only, with scan/photo intake and agent notifications. Separate from forwarded inbound context. |
 
 Outbound pricing: First Class starts at $1.00 for a 1-page letter, then +$0.40 per extra page. USPS 1-page pricing: Priority Flat Rate Envelope $14.85, Certified Mail $8.98, Certified + Return Receipt $13.38. Color printing +$0.25/page. FedEx and UPS envelope rates are zone-based and shown at checkout.
 
@@ -150,8 +151,8 @@ clawhub login
 clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
-  --version 5.1.5 \
-  --changelog "v5.1.5 — makes the managed real mailing address reservation path explicit: street address + mailbox number, scan/photo intake, OCR/classification, agent notifications, and linked reply workflows."
+  --version 5.1.6 \
+  --changelog "v5.1.6 — refreshes MCP discovery to 30 tools, including source-document retrieval, document_preview_url review flows, and current hosted install/catalog links."
 clawhub inspect mailbox-bot
 ```
 

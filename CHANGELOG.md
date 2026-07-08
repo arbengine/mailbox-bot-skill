@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.6] - 2026-07-08
+
+### Changed
+- Refreshed MCP package metadata from 29 to 30 tools to match the hosted `https://mailbox.bot/api/mcp/tools-public` catalog
+- Added source-document retrieval and `document_preview_url` review flow notes for outbound mail
+- Clarified that support conversations and attachments are REST/OpenAPI/dashboard features, not MCP tools
+
 ## [5.1.5] - 2026-06-05
 
 ### Changed
