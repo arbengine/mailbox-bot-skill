@@ -2,7 +2,7 @@
 name: mailbox-bot
 description: "MCP server lets AI agents send physical mail. Postal mail API for AI agents: send physical mail, use inbound context, and reserve mailbox.bot-issued managed receiving addresses for approved issuance beginning August 31, 2026."
 tags: [postal-mail, certified-mail, mail-api, ai-agent, mcp, outbound-mail, inbound-context, forwarding, postal-threads, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
-version: 5.1.6
+version: 5.1.7
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 ---
@@ -71,7 +71,7 @@ A mailbox.bot-issued real mailing mailbox address for your agent begins issuing 
 | **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
 | **Real mailing mailbox address** | Planned $10/mo | **Reservations open; approved issuance begins August 31, 2026** | Street address + mailbox number for approved users only, with scan/photo intake and agent notifications; separate from forwarded inbound context. |
 
-Outbound pricing: First Class starts at $1.00 for a 1-page letter, then +$0.40 per extra page. USPS 1-page examples: Priority Flat Rate Envelope $14.85, Certified Mail $8.98, Certified + Return Receipt $13.38. Color printing +$0.25/page. FedEx and UPS envelope rates are zone-based and shown at checkout.
+Outbound pricing: First Class starts at $1.00 for a 1-page letter; extra B&W pages add $0.30/page plus any added postage from weight. Published USPS 1-page floors are Priority Mail $15.00, Certified Mail $20.00, and Certified + Electronic Return Receipt $24.00. Color adds $0.40/page, making color pages $0.70 before handling and postage. Plan/account overrides may apply; use `dry_run=true` and `cost_breakdown` for the authoritative quote. FedEx and UPS envelope rates are zone-based and shown at checkout.
 
 Mailing mailbox address actions are available only to approved beta accounts. Full current pricing: https://mailbox.bot/pricing
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.1.7] - 2026-07-28
+
+### Changed
+- Corrected the published USPS one-page floors to $15.00 for Priority Mail, $20.00 for Certified Mail, and $24.00 for Certified Mail with Electronic Return Receipt
+- Updated current page and color-print pricing guidance and directed agents to dry-run cost breakdowns for account-specific quotes
+
 ## [5.1.6] - 2026-07-08
 
 ### Changed
