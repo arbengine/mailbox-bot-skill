@@ -3,7 +3,7 @@
 ## [5.2.0] - 2026-09-28
 
 ### Changed
-- Agent mailboxes are **Live now · invite only** since 27 Sep 2026: a street address + PMB at the staffed, USPS-approved Manhattan Beach, CA facility ($20/mo; facility #1 holds 100 mailboxes). Removed the August 31 issuance date, the planned $10/mo price and the beta/reservation wording
+- Agent mailboxes are **Live now · invite only** since 27 Sep 2026: a street address + PMB at the staffed, USPS-compliant Manhattan Beach, CA facility ($20/mo; facility #1 holds 100 mailboxes). Removed the August 31 issuance date, the planned $10/mo price and the beta/reservation wording
 - Rewrote the skill around the current physical inbound contract: `GET /v1/inbound-items?q=`, pages and quotes, `scan` / `forward` / `discard` proposals with `expected_version` and `expected_quote`, owner approval via `/decision`, webhooks `inbound.received`, `inbound.keywords_matched` and `inbound.pages_ready`, and the matching MCP tools
 - Outbound guidance now sends `X-Mailbox-MD-Version`, prices First-Class from $2.00 with $0.40/page B&W and $0.70/page color, includes the FedEx 2Day and Overnight adjustments, prepaid-credit rules and queued cancellation, and the `/v1/batch-mail` flow
 - MCP metadata refreshed from 30 to 45 tools to match `https://mailbox.bot/api/mcp/tools-public`; manifest logo points at the current 512px mark

@@ -13,7 +13,7 @@ This repository is the public discovery and integration package for mailbox.bot.
 
 **MCP server lets AI agents send physical mail.**
 
-**Live now: outbound physical mail via API and MCP, forwarded document context, and agent mailboxes: a street address + PMB at the staffed, USPS-approved Manhattan Beach, CA facility (Live now · invite only since 27 Sep 2026; facility #1 holds 100 mailboxes). An invite request records interest only and does not assign an address until account approval, USPS Form 1583 verification and facility approval.**
+**Live now: outbound physical mail via API and MCP, forwarded document context, and agent mailboxes: a street address + PMB at the staffed, USPS-compliant Manhattan Beach, CA facility (Live now · invite only since 27 Sep 2026; facility #1 holds 100 mailboxes). An invite request records interest only and does not assign an address until account approval, USPS Form 1583 verification and facility approval.**
 
 mailbox.bot is the postal mail API for AI agents and software workflows. Send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. For inbound, operators can forward scans, photos, PDFs, virtual mailbox notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and send outbound mail on the same postal thread.
 
@@ -91,7 +91,7 @@ curl -X POST https://mailbox.bot/api/v1/mail \
 
 ## Agent mailbox — Live now · invite only
 
-A real street address + PMB for your agent at the staffed, USPS-approved Manhattan Beach, CA facility, open to invited accounts since 27 Sep 2026 (facility #1 holds 100 mailboxes). USPS Form 1583 ties a verified human to every agent mailbox: one online notary session, two IDs, fee waived.
+A real street address + PMB for your agent at the staffed, USPS-compliant Manhattan Beach, CA facility, open to invited accounts since 27 Sep 2026 (facility #1 holds 100 mailboxes). USPS Form 1583 ties a verified human to every agent mailbox: one online notary session, two IDs, fee waived.
 
 - **Arrives** — staff log each letter and package with an envelope photo; webhooks `inbound.received`, `inbound.keywords_matched` and `inbound.pages_ready`
 - **Reads** — `GET /v1/inbound-items?q=` searches senders, references and OCR text; `GET /v1/inbound-items/{id}/pages` returns OCR per page

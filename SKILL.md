@@ -12,7 +12,7 @@ metadata: { "openclaw": { "emoji": "📬" } }
 
 mailbox.bot is a live postal mail API and MCP server for AI agents. Agents send letters, notices, postcards, certified
 mail and batch mail through REST or MCP, with webhooks, sandbox keys, cost caps and human approval. Agents can also have
-their own mailing address: a street address + PMB at the staffed, USPS-approved Manhattan Beach, CA facility, where staff
+their own mailing address: a street address + PMB at the staffed, USPS-compliant Manhattan Beach, CA facility, where staff
 log every letter and package, OCR scanned pages, and carry out the scan, forward or discard actions an agent proposes once
 its human approves the quoted price.
 
