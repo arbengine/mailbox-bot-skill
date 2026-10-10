@@ -13,7 +13,7 @@ This repository is the public discovery and integration package for mailbox.bot.
 
 **MCP server lets AI agents send physical mail.**
 
-**Live now: outbound physical mail via API and MCP, forwarded document context, and agent mailboxes: a street address + PMB at the staffed, USPS-compliant Manhattan Beach, CA facility (Live now · invite only since 27 Sep 2026; facility #1 holds 100 mailboxes). An invite request records interest only and does not assign an address until account approval, USPS Form 1583 verification and facility approval.**
+**Live now: outbound physical mail via API and MCP, forwarded document context, and agent mailboxes: a street address + PMB at the staffed, USPS-compliant Manhattan Beach, CA facility for $10/mo. Get one at signup or with `POST /v1/mailing-address-requests`. The PMB number is assigned after USPS Form 1583 verification.**
 
 mailbox.bot is the postal mail API for AI agents and software workflows. Send PDFs, DOCX files, letters, notices, certified mail, postcards, and documents through `POST /v1/mail`. For inbound, operators can forward scans, photos, PDFs, virtual mailbox notices, and human notes from the addresses they already use; agents can read that context, draft linked replies, and send outbound mail on the same postal thread.
 
@@ -56,6 +56,12 @@ clawhub install mailbox-bot
 openclaw skills install arbengine/mailbox-bot
 ```
 
+### Claude Code, Cursor, Codex and other agents
+
+```bash
+npx skills add arbengine/mailbox-bot-skill
+```
+
 ### REST API
 
 ```bash
@@ -89,17 +95,17 @@ curl -X POST https://mailbox.bot/api/v1/mail \
 - **Human-in-the-loop** — `requires_approval=true` pauses for human approval
 - **Billing safeguards** — `X-Max-Cost-Cents` header, `dry_run=true`, daily spend caps
 
-## Agent mailbox — Live now · invite only
+## Agent mailbox — Live now
 
-A real street address + PMB for your agent at the staffed, USPS-compliant Manhattan Beach, CA facility, open to invited accounts since 27 Sep 2026 (facility #1 holds 100 mailboxes). USPS Form 1583 ties a verified human to every agent mailbox: one online notary session, two IDs, fee waived.
+A real street address + PMB for your agent at the staffed, USPS-compliant Manhattan Beach, CA facility, $10/mo. Mailboxes are live now: get one at signup or with `POST /v1/mailing-address-requests`. The PMB number is assigned after USPS Form 1583 verification. USPS Form 1583 ties a verified human to every agent mailbox: one online notary session, two IDs, fee waived.
 
 - **Arrives** — staff log each letter and package with an envelope photo; webhooks `inbound.received`, `inbound.keywords_matched` and `inbound.pages_ready`
 - **Reads** — `GET /v1/inbound-items?q=` searches senders, references and OCR text; `GET /v1/inbound-items/{id}/pages` returns OCR per page
 - **Acts** — `POST /v1/inbound-items/{id}/actions` proposes `scan`, `forward` or `discard`; the owner approves at the quoted price
-- **Plan** — $20/mo includes 30 pieces and 5 packages a month and two Open & scan requests; `GET /v1/inbound-plan` returns every rate
+- **Plan** — $10/mo includes 30 pieces and 5 packages a month and two Open & scan requests; `GET /v1/inbound-plan` returns every rate
 - **Sandbox** — `sk_agent_test_` keys use the same routes on the account's sample letter, with nothing charged
 
-An invite request (`POST /v1/waitlist`) records interest only and does not assign an address.
+No mailbox yet? Request a mailing address # with `POST /v1/mailing-address-requests`; the human finishes USPS Form 1583 online.
 
 ## Protocols
 
@@ -115,7 +121,7 @@ An invite request (`POST /v1/waitlist`) records interest only and does not assig
 | Plan | Price | Status | What you get |
 |------|-------|--------|-------------|
 | **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
-| **Agent mailbox** | $20/mo | **Live now · invite only** | Street address + PMB at the Manhattan Beach, CA facility; 30 pieces and 5 packages a month included; scan, forward or discard with owner approval. |
+| **Agent mailbox** | $10/mo | **Live now** | Street address + PMB at the Manhattan Beach, CA facility; 30 pieces and 5 packages a month included; scan, forward or discard with owner approval. |
 
 Outbound pricing: a 1-page USPS First-Class letter starts at $2.00; printing is $0.40/page B&W or $0.70/page color total (including the $0.30/page color upgrade). Published USPS 1-page floors are Priority Mail $15.00, Certified Mail $20.00, and Certified + Electronic Return Receipt $24.00. FedEx 2Day takes a fixed $8.00 reduction and FedEx Overnight a fixed $18.00 adjustment after the carrier baseline. Outbound mail uses prepaid credits; use `dry_run=true` and `cost_breakdown` for the authoritative quote.
 
@@ -154,8 +160,8 @@ clawhub login
 clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
-  --version 5.2.0 \
-  --changelog "v5.2.0 — agent mailboxes are live now · invite only; current inbound actions, webhooks, MCP tools and outbound pricing."
+  --version 5.3.0 \
+  --changelog 'v5.3.0 — agent mailboxes are open to everyone and live now at $10/mo; request one with POST /v1/mailing-address-requests.'
 clawhub inspect mailbox-bot
 ```
 

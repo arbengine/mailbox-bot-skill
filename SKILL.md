@@ -1,8 +1,8 @@
 ---
 name: mailbox-bot
-description: "Postal mail API and MCP server for AI agents: send letters, certified mail and postcards, and give an agent its own street address + PMB (Live now · invite only) with webhooks, OCR search and human-approved scan, forward or discard."
+description: "Postal mail API and MCP server for AI agents: send letters, certified mail and postcards, and give an agent its own street address + PMB with webhooks, OCR search and human-approved scan, forward or discard."
 tags: [postal-mail, certified-mail, mail-api, mailing-address, agent-mailbox, ai-agent, mcp, outbound-mail, inbound-mail, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
-version: 5.2.0
+version: 5.3.0
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 metadata: { "openclaw": { "emoji": "📬" } }
@@ -10,21 +10,20 @@ metadata: { "openclaw": { "emoji": "📬" } }
 
 # mailbox.bot — postal mail for AI agents
 
-mailbox.bot is a live postal mail API and MCP server for AI agents. Agents send letters, notices, postcards, certified
-mail and batch mail through REST or MCP, with webhooks, sandbox keys, cost caps and human approval. Agents can also have
-their own mailing address: a street address + PMB at the staffed, USPS-compliant Manhattan Beach, CA facility, where staff
+mailbox.bot is a postal mail API and MCP server for AI agents. Agents send letters, notices, postcards, certified
+mail and batch mail through REST or MCP, with webhooks, sandbox keys, cost caps and human approval. Agent mailboxes are live now:
+a street address + PMB at the staffed, USPS-compliant Manhattan Beach, CA facility, $10/mo, where staff
 log every letter and package, OCR scanned pages, and carry out the scan, forward or discard actions an agent proposes once
 its human approves the quoted price.
 
-| Capability | Status |
+| Capability | Details |
 |---|---|
-| Outbound letters, postcards, certified and batch mail (REST, MCP, webhooks) | Live now |
-| Digital inbound context forwarded from an address the operator already controls | Live now |
-| Agent mailbox: street address + PMB, letters and packages, $20/mo | Live now · invite only, since 27 Sep 2026; facility #1 holds 100 mailboxes |
+| Outbound letters, postcards, certified and batch mail (REST, MCP, webhooks) | Prepaid credits |
+| Digital inbound context forwarded from an address the operator already controls | Included |
+| Agent mailbox: street address + PMB, letters and packages | Live now, $10/mo |
 
-An invite request (`POST /v1/waitlist`) records interest only and does not assign an address until account approval,
-USPS Form 1583 verification (online notary, two IDs, fee waived) and facility approval. USPS Form 1583 ties a verified
-human to every agent mailbox.
+Mailboxes are live now. Get one at signup or with `POST /v1/mailing-address-requests`. The PMB number is assigned after USPS Form 1583 verification.
+The notary session is online (two IDs, fee waived), and USPS Form 1583 ties a verified human to every agent mailbox.
 
 ## When to use this skill
 
@@ -124,7 +123,7 @@ delivery). Webhooks fire `mail.submitted`, `mail.ready`, `mail.mailed`, `mail.de
 Batch mail: one PDF plus one CSV — `POST /v1/batch-mail/estimate`, `POST /v1/batch-mail` (draft, nothing charged),
 `POST /v1/batch-mail/{id}/confirm` (debits credits). Guide: https://mailbox.bot/api-docs/batch-and-postcards
 
-## Agent mailbox (physical inbound) — Live now · invite only
+## Agent mailbox (physical inbound)
 
 For accounts with an assigned PMB. The same rules apply over REST, MCP and the dashboard buttons. Sandbox keys work on
 every account's sample letter (Mojave Land Partners): quotes show `billing_mode: "sample"` and nothing is charged, mailed
@@ -162,11 +161,11 @@ MCP equivalents: `search_inbound_items`, `get_inbound_item`, `get_inbound_pages`
 `request_inbound_action`, `get_inbound_activity`. Errors are `{error, code, retryable, suggested_action}`:
 409 `INBOUND_VERSION_CONFLICT` means re-read; 409 `INBOUND_QUOTE_CHANGED` carries the fresh quote.
 
-Plan: $20/mo includes 30 non-junk pieces and 5 packages a month and two Open & scan requests (first 10 pages each), then
+Plan: $10/mo includes 30 non-junk pieces and 5 packages a month and two Open & scan requests (first 10 pages each), then
 $3.00 per request and $0.10 per page after page 10; forwarding is postage plus $2.00 handling; discard is free.
 `GET /v1/inbound-plan` returns allowances, limits and every rate; `GET /v1/inbound-charges` is the ledger.
 
-No mailbox yet? `POST /v1/waitlist` records an invite request (it does not assign an address), and the human continues at
+No mailbox yet? Request a mailing address # with `POST /v1/mailing-address-requests`; the human continues at
 https://mailbox.bot/signup. `/v1/mailboxes` returns logical outbound endpoints only; never send physical mail to them.
 
 ## Digital inbound context
@@ -199,7 +198,7 @@ action. Member webhook endpoints with keyword alerts and per-endpoint signing se
 - Read current state before any mutation; treat 409 as stale state or an idempotency conflict and re-read.
 - Use `dry_run` for uncertain outbound cost or service choices; never retry a denied sandbox request with a live key.
 - Never present an agent proposal as approved until the member approves it.
-- Never claim a receiving PMB came from `/v1/mailboxes` or from an invite request.
+- Never claim a receiving PMB came from `/v1/mailboxes` or from a mailing address request.
 - Honor `Retry-After`; stop on access errors; never switch keys.
 
 ## Links

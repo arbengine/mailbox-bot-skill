@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.3.0] - 2026-10-10
+
+### Changed
+- Agent mailboxes are open to everyone and **live now** at $10/mo (was $20/mo, invite only): a street address + PMB at the staffed, USPS-compliant Manhattan Beach, CA facility. The PMB number is assigned after USPS Form 1583 verification
+- A mailbox is requested at signup or with `POST /v1/mailing-address-requests`, which replaces the invite request (`POST /v1/waitlist`) in the skill and README
+- README adds the `npx skills add arbengine/mailbox-bot-skill` install line for Claude Code, Cursor, Codex and other agents
+
 ## [5.2.0] - 2026-09-28
 
 ### Changed
