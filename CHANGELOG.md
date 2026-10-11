@@ -1,5 +1,10 @@
 # Changelog
 
+## [5.3.1] - 2026-10-11
+
+### Changed
+- Agent mailbox rental is $15/mo (was $10/mo). Mailboxes are still open to everyone and live now; allowances and usage rates are unchanged
+
 ## [5.3.0] - 2026-10-10
 
 ### Changed
