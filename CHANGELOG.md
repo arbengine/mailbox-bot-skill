@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.3.2] - 2026-11-10
+
+### Changed
+- FedEx prices as of 9 Nov 2026: Express Saver is $5.00 below its carrier baseline (`service_adjustment_cents: -500`), 2Day $13.00 below (`-1300`, was `-800`), Overnight $13.00 above (`1300`, was `1800`), and Ground carries a $5.00 markup (`500`)
+- `delivery_signature`: optional signature on delivery for one letter (FedEx indirect $8.00, direct $8.50, adult $11.00; Priority direct $5.00, adult $11.00; Certified restricted $10.00)
+- README: 55 MCP tools (was 45) and framework guide links at `/integrations/...` (the old `/docs/...` addresses redirect)
+
 ## [5.3.1] - 2026-10-11
 
 ### Changed

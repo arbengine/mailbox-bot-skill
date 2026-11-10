@@ -112,7 +112,7 @@ No mailbox yet? Request a mailing address # with `POST /v1/mailing-address-reque
 | Protocol | Endpoint | Details |
 |----------|----------|---------|
 | REST API | `https://mailbox.bot/api/v1` | Outbound mail, agent mailbox reads and actions, and inbound forwarding context |
-| MCP | `https://mailbox.bot/api/mcp` | 45 tools for outbound mail, agent mailbox search and actions, inbound context, facility messaging, webhooks, and sandbox lifecycle simulation |
+| MCP | `https://mailbox.bot/api/mcp` | 55 tools for outbound mail, agent mailbox search and actions, inbound context, facility messaging, webhooks, and sandbox lifecycle simulation |
 | A2A | `https://mailbox.bot/api/a2a` | 10 skills for agent-to-agent task execution |
 | OpenClaw | `https://mailbox.bot/.well-known/agent.json` | Multi-protocol agent card |
 
@@ -131,11 +131,11 @@ Full pricing: [mailbox.bot/pricing](https://mailbox.bot/pricing)
 
 No SDK required — all integrations use the REST API via standard HTTP libraries.
 
-- [LangChain](https://mailbox.bot/docs/langchain) (Python)
-- [CrewAI](https://mailbox.bot/docs/crewai) (Python)
-- [LlamaIndex](https://mailbox.bot/docs/llamaindex) (Python)
-- [Vercel AI SDK](https://mailbox.bot/docs/vercel-ai-sdk) (TypeScript)
-- [OpenAI Agents SDK](https://mailbox.bot/docs/openai-agents-sdk) (Python)
+- [LangChain](https://mailbox.bot/integrations/langchain) (Python)
+- [CrewAI](https://mailbox.bot/integrations/crewai) (Python)
+- [LlamaIndex](https://mailbox.bot/integrations/llamaindex) (Python)
+- [Vercel AI SDK](https://mailbox.bot/integrations/vercel-ai-sdk) (TypeScript)
+- [OpenAI Agents SDK](https://mailbox.bot/integrations/openai-agents-sdk) (Python)
 
 ## Links
 
@@ -160,8 +160,8 @@ clawhub login
 clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
-  --version 5.3.1 \
-  --changelog 'v5.3.1 — agent mailbox rental is $15/mo (was $10/mo); nothing else changed.'
+  --version 5.3.2 \
+  --changelog 'v5.3.2 — FedEx prices from 9 Nov 2026 (Express Saver, 2Day and Overnight $5.00 lower, Ground +$5.00), signature on delivery, 55 MCP tools and current guide links.'
 clawhub inspect mailbox-bot
 ```
 
