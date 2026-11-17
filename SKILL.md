@@ -2,7 +2,7 @@
 name: mailbox-bot
 description: "Postal mail API and MCP server for AI agents: send letters, certified mail and postcards, and give an agent its own street address + PMB with webhooks, OCR search and human-approved scan, forward or discard."
 tags: [postal-mail, certified-mail, mail-api, mailing-address, agent-mailbox, ai-agent, mcp, outbound-mail, inbound-mail, print-and-mail, webhooks, openclaw, a2a, agent-tools, openapi]
-version: 5.3.2
+version: 5.3.3
 author: mailbox.bot
 repository: https://github.com/arbengine/mailbox-bot-skill
 metadata: { "openclaw": { "emoji": "📬" } }
@@ -98,7 +98,7 @@ return address.
 
 Mail classes (do not infer speed, tracking or proof from a name; use `dry_run` and ask before a costlier class):
 
-- `first_class` — ordinary USPS letter mail, no carrier tracking by default; a 1-page letter starts at $2.00.
+- `first_class` — ordinary USPS letter mail, no carrier tracking by default; a 1-page letter starts at $3.00.
 - `priority` — USPS Priority Mail with USPS Tracking, not Certified proof; $15.00 published one-page floor.
 - `certified` — USPS Certified Mail, proof of mailing and delivery; $20.00 published one-page floor.
 - `certified_return_receipt` — Certified plus Electronic Return Receipt; $24.00 published one-page floor.

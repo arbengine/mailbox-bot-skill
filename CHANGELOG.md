@@ -1,5 +1,10 @@
 # Changelog
 
+## [5.3.3] - 2026-11-17
+
+### Changed
+- A 1-page USPS First-Class letter is $3.00 (was $2.00). Extra pages still add $0.40 each B&W ($0.70 color total) plus any postage increase from weight; Priority, Certified, Certified + Electronic Return Receipt, FedEx, batch and postcard prices are unchanged
+
 ## [5.3.2] - 2026-11-10
 
 ### Changed

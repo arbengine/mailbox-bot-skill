@@ -123,7 +123,7 @@ No mailbox yet? Request a mailing address # with `POST /v1/mailing-address-reque
 | **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
 | **Agent mailbox** | $15/mo | **Live now** | Street address + PMB at the Manhattan Beach, CA facility; 30 pieces and 5 packages a month included; scan, forward or discard with owner approval. |
 
-Outbound pricing: a 1-page USPS First-Class letter starts at $2.00; printing is $0.40/page B&W or $0.70/page color total (including the $0.30/page color upgrade). Published USPS 1-page floors are Priority Mail $15.00, Certified Mail $20.00, and Certified + Electronic Return Receipt $24.00. FedEx 2Day takes a fixed $8.00 reduction and FedEx Overnight a fixed $18.00 adjustment after the carrier baseline. Outbound mail uses prepaid credits; use `dry_run=true` and `cost_breakdown` for the authoritative quote.
+Outbound pricing: a 1-page USPS First-Class letter starts at $3.00; printing is $0.40/page B&W or $0.70/page color total (including the $0.30/page color upgrade). Published USPS 1-page floors are Priority Mail $15.00, Certified Mail $20.00, and Certified + Electronic Return Receipt $24.00. FedEx 2Day takes a fixed $8.00 reduction and FedEx Overnight a fixed $18.00 adjustment after the carrier baseline. Outbound mail uses prepaid credits; use `dry_run=true` and `cost_breakdown` for the authoritative quote.
 
 Full pricing: [mailbox.bot/pricing](https://mailbox.bot/pricing)
 
@@ -160,8 +160,8 @@ clawhub login
 clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
-  --version 5.3.2 \
-  --changelog 'v5.3.2 — FedEx prices from 9 Nov 2026 (Express Saver, 2Day and Overnight $5.00 lower, Ground +$5.00), signature on delivery, 55 MCP tools and current guide links.'
+  --version 5.3.3 \
+  --changelog 'v5.3.3 — USPS First-Class one-page letter is $3.00 (was $2.00) from 17 Nov 2026; extra pages and every other price unchanged.'
 clawhub inspect mailbox-bot
 ```
 
