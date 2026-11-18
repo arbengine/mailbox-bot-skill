@@ -2,7 +2,7 @@
 
 [![Website](https://img.shields.io/badge/Website-mailbox.bot-1D4ED8?style=flat)](https://mailbox.bot)
 [![API Docs](https://img.shields.io/badge/API_Docs-api--docs-1D4ED8?style=flat)](https://mailbox.bot/api-docs)
-[![MCP](https://img.shields.io/badge/MCP-45_tools-1D4ED8?style=flat)](https://mailbox.bot/mcp-install)
+[![MCP](https://img.shields.io/badge/MCP-55_tools-1D4ED8?style=flat)](https://mailbox.bot/mcp-install)
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-3.1-1D4ED8?style=flat)](https://mailbox.bot/openapi.json)
 [![Sandbox](https://img.shields.io/badge/Sandbox-test_keys-1D4ED8?style=flat)](https://mailbox.bot/api-docs#sandbox)
 [![License](https://img.shields.io/badge/License-Proprietary-gray?style=flat)]()
