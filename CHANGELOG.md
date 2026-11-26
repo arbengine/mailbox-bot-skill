@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.3.7] - 2026-11-26
+
+### Changed
+- One-page prices are stated as exact prices (extra pages, color and signatures add on top), not floors
+- New paragraph under the mail classes: FedEx Express Saver, 2Day and Overnight prices are base estimates with the adjustments listed above already included; the final price, by destination zone (distance) and page count, is shown before it's mailed (`dry_run` returns it first)
+
 ## [5.3.6] - 2026-11-26
 
 ### Changed
