@@ -123,7 +123,7 @@ No mailbox yet? Request a mailing address # with `POST /v1/mailing-address-reque
 | **Inbound context + outbound mail** | $0/mo | **Live now** | Private inbound forwarding alias included. Send outbound mail by dashboard, API, or MCP. |
 | **Agent mailbox** | $20/mo | **Live now** | Street address + PMB at the Manhattan Beach, CA facility; 30 pieces and 5 packages a month included; scan, forward or discard with owner approval. |
 
-Outbound pricing: a 1-page USPS First-Class letter is $2.00; printing is $0.40/page B&W or $0.70/page color total (including the $0.30/page color upgrade). Published USPS 1-page prices: Certified Mail on First-Class Mail $12.00 (`certified`, usually 1-5 business days), Certified Mail on Priority Mail $20.00 (`certified_priority`, usually 1-3 business days), Priority Mail $13.00, and Certified + Electronic Return Receipt $20.00. FedEx Express Saver, 2Day and Overnight are $7.00 below their carrier baselines (2Day a fixed $15.00 reduction, Overnight a fixed $11.00 adjustment), and FedEx Ground is a flat $18.00 for one page. Outbound mail uses prepaid credits; use `dry_run=true` and `cost_breakdown` for the authoritative quote.
+Outbound pricing: a 1-page USPS First-Class letter is $2.00; printing is $0.40/page B&W or $0.70/page color total (including the $0.30/page color upgrade). Published USPS 1-page prices: Certified Mail on First-Class Mail $12.00 (`certified`, usually 1-5 business days), Certified Mail on Priority Mail $20.00 (`certified_priority`, usually 1-3 business days), Priority Mail $14.00, and Certified + Electronic Return Receipt $20.00. FedEx Express Saver, 2Day and Overnight are $7.00 below their carrier baselines (2Day a fixed $15.00 reduction, Overnight a fixed $11.00 adjustment), and FedEx Ground is a flat $18.00 for one page. Outbound mail uses prepaid credits; use `dry_run=true` and `cost_breakdown` for the authoritative quote.
 
 Full pricing: [mailbox.bot/pricing](https://mailbox.bot/pricing)
 
@@ -160,8 +160,8 @@ clawhub login
 clawhub publish . \
   --slug mailbox-bot \
   --name "mailbox.bot" \
-  --version 5.3.5 \
-  --changelog 'v5.3.5 — Certified Mail on First-Class $12.00 and new certified_priority (Certified Mail on Priority Mail) $20.00; Certified + eRR $20.00, First-Class $2.00, Priority $13.00, FedEx Ground $18.00, FedEx air $7.00 below baseline'
+  --version 5.3.6 \
+  --changelog 'v5.3.6 — USPS Priority Mail is $14.00 for one page (was $13.00); Certified $12.00 on First-Class or $20.00 on Priority Mail, Certified + eRR $20.00'
 clawhub inspect mailbox-bot
 ```
 

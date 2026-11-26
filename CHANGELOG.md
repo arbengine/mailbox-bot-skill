@@ -1,5 +1,10 @@
 # Changelog
 
+## [5.3.6] - 2026-11-26
+
+### Changed
+- USPS Priority Mail is $14.00 for one page (was $13.00); with Signature Confirmation $19.00, with Adult Signature $25.00
+
 ## [5.3.5] - 2026-11-26
 
 ### Added
